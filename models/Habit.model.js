@@ -17,7 +17,7 @@ const habitSchema = new Schema(
           type: Date,
           required: true
         },
-        note: {
+        details: {
           type: String,
           trim: true
         }
