@@ -1,11 +1,11 @@
 # Habitopia
 
-In habit.model.js I've added a note to the occurance section -  this would be e.g. distance for running, duration for yoga/meditation or volume for water drunk.
+In habit.model.js I've added a details field to the occurance section -  this would be e.g. distance for running, duration for yoga/meditation or volume for water drunk.
 
-We can push to the occurance array when a habbit is done
+We can push to the occurance array when a habit is done
 
 
-
+These sections below I haven't updated: Routes, Project, Trello and Slides
 
 
 
@@ -21,33 +21,38 @@ We can push to the occurance array when a habbit is done
 
 ## Description
 
-**NOTE -** Describe your project in one/two lines.
+A digital bullet journal. Habitopia is a habit tracking app designed to easily capture and organize your thoughts, goals, and daily activities. 
  
 ## User Stories
 
 **NOTE -**  List here all the actions a user can do in the app. Example:
 
-- **404** - As a user I want to see a nice 404 page when I go to a page that doesn’t exist so that I know it was my fault 
-- **500** - As a user I want to see a nice error page when the super team screws it up so that I know that is not my fault
-- **homepage** - As a user I want to be able to access the homepage so that I see what the app is about and login and signup
-- **sign up** - As a user I want to sign up on the webpage so that I can see all the events that I could attend
-- **login** - As a user I want to be able to log in on the webpage so that I can get back to my account
-- **logout** - As a user I want to be able to log out from the webpage so that I can make sure no one will access my account
-- **events list** - As a user I want to see all the events available so that I can choose which ones I want to attend
-- **events create** - As a user I want to create an event so that I can invite others to attend
+- **homepage** - welcome to the website, log in or sign up.
+- **sign up** - create an account on Habitopia
+- **logout** - logout of you account
+- **self check-in** - log how you're feeling today and track how your mood changes
+- **journal** - Write a diary, notes, brain dump, poetry, the journal page is your place to be expressive, creative and free
+- **habit tracker** - Track your habits. Did you have enough water to drink today? Did you meet your goal of exercising 3 days this week? Keep a record of all the important things you want to achieve.
+- **success** - Your self check-in, journal entry or habits have been recorded succesfully.
+- **404** - 404 page to let you know that page doesn’t exist 
+- **500** - an error page to let you know something has gone wrong
 
 ## Backlog Functionalities
 
-**NOTE -** List here all functionalities you wish to add to your proyect later.
+- **Backgrounds** - Habitopia should be visually engaging so we want to add as much beautiful art as possible, but this isn't the main aim of the project
+
+- **Search function** - search previous journal entries
+
+- **Records** - longest run, best week for meeting goals, longest streak 
+
+- **Custom habits** - add your own habits to track, including selecting an image to track it
 
 ## Technologies used
 
-**NOTE -** List here all technologies used in the project like HTML, CSS, Javascript, Node, Express, Handlebars, Sessions & Cookies, etc.
+HTML, CSS, Javascript, Node, Express, Handlebars, Sessions & Cookies
 
 
-## (Optional) Routes
-
-**NOTE -** List here all the routes of your server. Example:
+## Routes
 
 - GET / 
   - renders the homepage
@@ -69,44 +74,52 @@ We can push to the occurance array when a habbit is done
     - username
     - password
 
-- GET /events
-  - renders the event list + the create form
-- POST /events/create 
-  - redirects to / if user is anonymous
-  - body: 
-    - name
-    - date
-    - location
-    - description
-
 
 ## Models
 
-**NOTE -** List here all the models & Schemas of your Database Structure. Example: 
+
 
 User model
  
 ```
 username: String
+email: String
 password: String
 ```
 
-Event model
+Checkin model
 
 ```
-owner: ObjectId<User>
-name: String
-description: String
+mood: String
 date: Date
+``` 
+
+Journal model
+
+```
+title: String
+content: String
+createdAt: Date
+updatedAt: Date
+``` 
+
+Habit model
+
+```
+habit: String
+goal: String
+occurences:
+   date: Date
+   details: String
 ``` 
 
 ## Links
 
 ## Collaborators
 
-[Developer 1 name](www.github-url.com)
+[Patricia Moutinho](https://github.com/ThePainterThree)
 
-[Developer 2 name](www.github-url.com)
+[Charlotte Forsdick](https://github.com/Charlotte-RMT-WDPT-MAR2023)
 
 ### Project
 
