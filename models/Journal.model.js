@@ -2,10 +2,6 @@ const { Schema, model } = require("mongoose");
 
 const journalSchema = new Schema(
   {
-    title: {
-      type: String,
-      trim: true
-    },
     content: {
       type: String,
       required: [true, "Content is required."]

@@ -1,22 +1,31 @@
-
-
-  <div class="journal-container">
-    <div class="previous-entry">
+<section class="journal-container">
+  <form action="/journal" method="GET">
+    <div class="entry">
       <div class="entry-date">June 19, 2023</div>
       <div class="entry-content">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eu ultricies est. Aliquam tincidunt purus nunc, eu consectetur mi blandit nec. Duis dictum odio sed consectetur mattis. Suspendisse mollis ante quis metus aliquam, vel tempus est placerat. Sed eleifend justo eu nisi consectetur, id dignissim nunc finibus. Praesent consequat convallis augue, non pellentesque metus maximus sed. Sed in felis nibh.
+        <!-- Content of the previous entry -->
       </div>
+      <br>
+      <button class="button" type="submit" id="edit-button">Edit</button>
     </div>
-    <div class="new-entry">
+  </form>
+
+
+<form action="/journal" method="POST">
+  <div class="entry">
+    
       <div class="entry-date" id="new-entry-date"></div>
       <div class="entry-content" contenteditable="true">
         What do you want to write today?
       </div>
-      <div class="button-container">
-        <button class="edit-button">Edit</button>
-        <button class="save-button">Save</button>
+<br>
+        
+        <button class="buton" type="submit">Save</button>
       </div>
-    </div>
-  </div>
+    </form>
+  
+</section>
+
+
 
 <script src="/js/journal.js"></script>
