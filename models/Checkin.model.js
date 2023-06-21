@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const checkinSchema = new Schema({
   mood: {
-    type: String,
+    type: Number,
     trim: true,
   },
   date: {
