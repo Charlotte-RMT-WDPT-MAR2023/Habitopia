@@ -15,11 +15,9 @@ const Checkin = require("../models/Checkin.model");
 
 router.post("/check-in", (req, res) => {
   const mood = req.body.scale; 
-  //const userId = req.user._id;
 
   const checkin = new Checkin({ 
-    mood
-   // user: userId, 
+    mood 
    });
 
   checkin.save()
@@ -47,7 +45,7 @@ router.get("/user-profile", (req, res) => {
     });
 });
 
-module.exports = router;
+
 
 // Journal
 
@@ -73,9 +71,8 @@ router.post("/journal", (req, res) => {
 
 
 
-router.get("/journal", (req, res) => {
-  // Find the most recent journal entry
-  Journal.findOne()
+/*router.get("/journal", (req, res) => {
+    Journal.findOne()
     .sort({ createdAt: -1 }) 
     .exec()
     .then((previousEntry) => {
@@ -90,7 +87,7 @@ router.get("/journal", (req, res) => {
       res.status(500).json({ error: "Internal Server Error" });
     });
 });
-
+*/
 
 
 
