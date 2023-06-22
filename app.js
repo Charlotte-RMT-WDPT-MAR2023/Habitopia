@@ -15,7 +15,6 @@ const express = require("express");
 // https://www.npmjs.com/package/hbs
 const hbs = require("hbs");
 const app = express();
-const emojis = require('emojis')
 
 require('./config/session.config')(app);
 
@@ -37,7 +36,7 @@ app.use("/", userRouter);
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 
-app.use(express.urlencoded({ extended: true }));
+
 
 
 module.exports = app;
