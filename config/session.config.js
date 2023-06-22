@@ -28,7 +28,7 @@ module.exports = (app) => {
         sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         secure: process.env.NODE_ENV === "production",
         httpOnly: true,
-        maxAge: 60000, // 60 * 1000 ms === 1 min
+        maxAge: 600000, // 600 * 1000 ms === 10 min
       },
       
     })

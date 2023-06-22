@@ -32,7 +32,7 @@ router.post("/check-in", (req, res) => {
 const Journal = require("../models/Journal.model");
 
 router.post("/journal", (req, res) => {
-  const content = req.body;
+  const { content } = req.body;
 
   const newJournalEntry = new Journal({ content  });
 
@@ -46,6 +46,7 @@ router.post("/journal", (req, res) => {
       res.redirect("/error"); 
     });
 });
+
 
 
 
@@ -66,7 +67,6 @@ router.get("/journal", (req, res) => {
       res.status(500).json({ error: "Internal Server Error" });
     });
 });
-
 
 
 

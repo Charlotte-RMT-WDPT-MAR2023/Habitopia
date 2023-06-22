@@ -1,9 +1,11 @@
 {{#if userInSession}}
-
   <h2>Welcome, {{userInSession.username}}!</h2>
-
+  <p id="motivation"></p>
 {{else}}
-
-  <br /><p>Still no logged in user, sorry!</p>
-
+  <br /><p>Still no logged-in user, sorry!</p>
 {{/if}}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="/js/user-profile.js"></script>
+
