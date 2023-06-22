@@ -119,6 +119,10 @@ ul li {
   width: 380px;
 }
 
+.emoji {
+  font-size: 20px;
+}
+
 /* Journal */
 
 .journal-container {

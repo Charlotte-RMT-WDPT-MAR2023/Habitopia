@@ -18,5 +18,59 @@ $.ajax({
     }
 });
 
+window.addEventListener("DOMContentLoaded", () => {
+  fetch("/user-profile")
+    .then((response) => response.json())
+    .then((data) => {
+      const checkins = data.checkins;
+      const checkinContainer = document.getElementById("checkin-container");
+
+      const moodEmojis = {
+        1: "😭",
+        2: "😢",
+        3: "😕",
+        4: "😐",
+        5: "🙂",
+        6: "😃",
+        7: "😍",
+      };
+
+      const motivationalSentences = {
+        1: "Last week was tough, but today is a new day. Keep pushing forward!",
+        2: "You faced challenges last week, but remember that you're stronger than you think.",
+        3: "Despite the difficulties of last week, you're resilient. Keep going!",
+        4: "You've shown incredible determination in the face of adversity. Keep that spirit alive!",
+        5: "Last week was a mixed bag of emotions, but remember that every setback is an opportunity for growth.",
+        6: "You had a great week! Whatever you're doing, keep going and maintain that positive momentum.",
+        7: "Your positive attitude last week has brought you success. Keep up the fantastic work!"
+      };
+
+      let sum = 0;
+      const emojisContainer = document.createElement("div"); // Create a container for emojis
+
+      checkins.forEach((checkin) => {
+        sum += checkin.mood;
+
+        const moodElement = document.createElement("span"); // Use <span> instead of <p> for horizontal display
+        const mood = checkin.mood;
+        moodElement.textContent = moodEmojis[mood];
+        moodElement.classList.add("emoji"); // Add a CSS class for styling
 
 
+
+        emojisContainer.appendChild(moodElement); // Append each emoji to the container
+      });
+
+      checkinContainer.appendChild(emojisContainer); // Append the container to the checkinContainer
+
+      const average = sum / checkins.length;
+
+      const averageElement = document.createElement("p");
+      averageElement.textContent = `${motivationalSentences[Math.round(average)]}`;
+
+      checkinContainer.appendChild(averageElement);
+    })
+    .catch((error) => {
+      console.log("Error fetching check-ins:", error);
+    });
+});

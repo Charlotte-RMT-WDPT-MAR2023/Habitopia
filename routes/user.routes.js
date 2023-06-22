@@ -15,8 +15,12 @@ const Checkin = require("../models/Checkin.model");
 
 router.post("/check-in", (req, res) => {
   const mood = req.body.scale; 
+  //const userId = req.user._id;
 
-  const checkin = new Checkin({ mood });
+  const checkin = new Checkin({ 
+    mood
+   // user: userId, 
+   });
 
   checkin.save()
     .then(() => {
@@ -28,6 +32,22 @@ router.post("/check-in", (req, res) => {
       res.redirect("/error"); 
     });
 });
+
+router.get("/user-profile", (req, res) => {
+  Checkin.find()
+    .sort({ date: -1 })
+    .limit(7)
+    .exec()
+    .then((checkins) => {
+      res.json({ checkins });
+    })
+    .catch((error) => {
+      console.log("Error fetching check-ins:", error);
+      res.redirect("/error");
+    });
+});
+
+module.exports = router;
 
 // Journal
 
