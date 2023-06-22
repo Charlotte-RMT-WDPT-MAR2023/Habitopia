@@ -1,5 +1,8 @@
 
+
 const router = require("express").Router();
+
+
 
 router.get("/checkin", (req, res) => res.render("users/check-in"));
 router.get("/journal", (req, res) => res.render("users/journal"));
@@ -55,6 +58,8 @@ const Journal = require("../models/Journal.model");
 router.post("/journal", (req, res) => {
   const { content } = req.body;
 
+  console.log(req.body); // Log the req.body object
+
   const newJournalEntry = new Journal({ content  });
 
   newJournalEntry.save()
@@ -71,15 +76,17 @@ router.post("/journal", (req, res) => {
 
 
 
-/*router.get("/journal", (req, res) => {
-    Journal.findOne()
-    .sort({ createdAt: -1 }) 
+router.get("/journal", (req, res) => {
+  console.log(req.query); // Log the query parameters to the console
+
+  Journal.findOne()
+    .sort({ createdAt: -1 })
     .exec()
     .then((previousEntry) => {
       if (previousEntry) {
-        res.json({ previousEntryContent: previousEntry.content, createdAt: previousEntry.createdAt });
+        res.render("journal", { previousEntryContent: previousEntry.content, createdAt: previousEntry.createdAt });
       } else {
-        res.json({ previousEntryContent: null, createdAt: null });
+        res.render("journal", { previousEntryContent: null, createdAt: null });
       }
     })
     .catch((error) => {
@@ -87,7 +94,7 @@ router.post("/journal", (req, res) => {
       res.status(500).json({ error: "Internal Server Error" });
     });
 });
-*/
+
 
 
 

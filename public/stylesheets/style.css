@@ -133,6 +133,7 @@ ul li {
 
 .entry-content {
   height: 300px;
+  width: 380px;
   border: 1px solid #ccc;
   padding: 10px;
 }
