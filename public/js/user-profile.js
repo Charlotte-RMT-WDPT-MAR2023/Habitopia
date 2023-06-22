@@ -1,6 +1,4 @@
 
-
-
 const quoteElement = document.getElementById("motivation");
 
 var category = 'inspirational'
