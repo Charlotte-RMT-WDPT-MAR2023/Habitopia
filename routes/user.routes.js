@@ -90,5 +90,25 @@ router.post("/journal", (req, res) => {
 */
 
 
+// Habits Tracker
+
+router.get("/habits", (req, res) => {
+  Habit.find()
+  .sort({ name: 1 })
+  .exec()
+  .then((habits) => {
+    res.json({ habits });
+    })
+  })
+
+
+  router.post('/track', (req, res) => {
+    const userData = req.body.userTrackingData;
+  //some more logic here to pass the info from each habit, one by one
+    res.render('track.hbs');
+  });
+
+
+
 
 module.exports = router;
