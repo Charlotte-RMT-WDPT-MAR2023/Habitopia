@@ -1,7 +1,7 @@
 <section class="journal-container">
   <form id="journal-form" action="/journal" method="GET">
     <div class="entry">
-      <div class="entry-date">June 19, 2023</div>
+      <div class="entry-date">{{createdAt}}</div>
       <div >
         <textarea name="content" class="entry-content">{{ previousEntryContent }}</textarea>
       </div>
@@ -9,8 +9,6 @@
       <button class="button" type="submit" id="edit-button">Edit</button>
     </div>
   </form>
-
-
 
 
 <form action="/journal" method="POST">
