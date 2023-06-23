@@ -2,11 +2,14 @@
   <h2>Welcome, {{userInSession.username}}!</h2>
   <p id="motivation"></p>
 
-  <p>Last 7 emojis, average emoji and a relevant note? e.g. last week was tough, today is a new day. </p>
-  <p>Sport tracker image</p>
-  <p>Yoga tracker image</p>
-  <p>Water tracker image</p>
+  <h2>Last 7 check-ins:</h2>
 
+<div id="checkin-container"></div>
+
+  
+  <h2>Sport tracker</h2>
+  <h2>Yoga tracker</h2>
+  <h2>Water tracker</h2>
 
 {{else}}
   <br /><p>Still no logged-in user, sorry!</p>
@@ -15,4 +18,3 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script src="/js/user-profile.js"></script>
-

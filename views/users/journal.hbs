@@ -1,9 +1,9 @@
 <section class="journal-container">
-  <form action="/journal" method="GET">
+  <form id="journal-form" action="/journal" method="GET">
     <div class="entry">
       <div class="entry-date">June 19, 2023</div>
-      <div class="entry-content">
-        <!-- Content of the previous entry -->
+      <div >
+        <textarea name="content" class="entry-content">{{ previousEntryContent }}</textarea>
       </div>
       <br>
       <button class="button" type="submit" id="edit-button">Edit</button>
@@ -11,21 +11,24 @@
   </form>
 
 
+
+
 <form action="/journal" method="POST">
   <div class="entry">
-    
-      <div class="entry-date" id="new-entry-date"></div>
-      <div class="entry-content" contenteditable="true">
-        What do you want to write today?
-      </div>
-<br>
-        
-        <button class="buton" type="submit">Save</button>
-      </div>
-    </form>
+    <div class="entry-date" id="new-entry-date"></div>
+    <div >
+      <textarea name="content" placeholder="What do you want to write today?" class="entry-content"></textarea>
+    </div>
+    <br>
+    <button class="button" type="submit">Save</button>
+  </div>
+</form>
+
+
   
 </section>
 
 
 
 <script src="/js/date.js"></script>
+<script src="/js/journal.js"></script>

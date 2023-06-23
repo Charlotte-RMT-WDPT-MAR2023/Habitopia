@@ -1,13 +1,16 @@
+const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard.js');
 
 const router = require("express").Router();
 
-router.get("/checkin", (req, res) => res.render("users/check-in"));
-router.get("/journal", (req, res) => res.render("users/journal"));
-router.get("/habits", (req, res) => res.render("users/habits"));
-router.get("/addhabit", (req, res) => res.render("users/add-habit"));
-router.get("/track", (req, res) => res.render("users/track"));
-router.get("/details", (req, res) => res.render("users/details"));
-router.get("/success", (req, res) => res.render("users/success"));
+
+
+router.get("/checkin", isLoggedIn, (req, res) => res.render("users/check-in"));
+router.get("/journal", isLoggedIn, (req, res) => res.render("users/journal"));
+router.get("/habits", isLoggedIn, (req, res) => res.render("users/habits"));
+router.get("/addhabit", isLoggedIn, (req, res) => res.render("users/add-habit"));
+router.get("/track", isLoggedIn, (req, res) => res.render("users/track"));
+router.get("/details", isLoggedIn, (req, res) => res.render("users/details"));
+router.get("/success", isLoggedIn, (req, res) => res.render("users/success"));
 
 // Checkin
 
@@ -16,7 +19,9 @@ const Checkin = require("../models/Checkin.model");
 router.post("/check-in", (req, res) => {
   const mood = req.body.scale; 
 
-  const checkin = new Checkin({ mood });
+  const checkin = new Checkin({ 
+    mood 
+   });
 
   checkin.save()
     .then(() => {
@@ -29,6 +34,22 @@ router.post("/check-in", (req, res) => {
     });
 });
 
+router.get("/user-profile", (req, res) => {
+  Checkin.find()
+    .sort({ date: -1 })
+    .limit(7)
+    .exec()
+    .then((checkins) => {
+      res.json({ checkins });
+    })
+    .catch((error) => {
+      console.log("Error fetching check-ins:", error);
+      res.redirect("/error");
+    });
+});
+
+
+
 // Journal
 
 
@@ -36,6 +57,8 @@ const Journal = require("../models/Journal.model");
 
 router.post("/journal", (req, res) => {
   const { content } = req.body;
+
+  console.log(req.body); // Log the req.body object
 
   const newJournalEntry = new Journal({ content  });
 
@@ -54,15 +77,16 @@ router.post("/journal", (req, res) => {
 
 
 router.get("/journal", (req, res) => {
-  // Find the most recent journal entry
+  console.log(req.query); // Log the query parameters to the console
+
   Journal.findOne()
-    .sort({ createdAt: -1 }) 
+    .sort({ createdAt: -1 })
     .exec()
     .then((previousEntry) => {
       if (previousEntry) {
-        res.json({ previousEntryContent: previousEntry.content, createdAt: previousEntry.createdAt });
+        res.render("journal", { previousEntryContent: previousEntry.content, createdAt: previousEntry.createdAt });
       } else {
-        res.json({ previousEntryContent: null, createdAt: null });
+        res.render("journal", { previousEntryContent: null, createdAt: null });
       }
     })
     .catch((error) => {

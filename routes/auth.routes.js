@@ -8,8 +8,12 @@ const saltRounds = 10;
 
 const User = require("../models/User.model");
 
+// require auth middleware
+const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard.js');
+
+
 // GET route ==> to display the signup form to users
-router.get("/signup", (req, res) => res.render("auth/signup"));
+router.get("/signup", isLoggedOut, (req, res) => res.render("auth/signup"));
 
 // POST route ==> to process form data
 router.post("/signup", (req, res, next) => {
@@ -33,7 +37,7 @@ router.post("/signup", (req, res, next) => {
     })
     .then((userFromDB) => {
       // console.log("Newly created user is: ", userFromDB);
-      res.redirect("/userProfile");
+      res.redirect("/login");
     })
     .catch((error) => next(error));
 });
@@ -72,8 +76,8 @@ router.post("/login", (req, res, next) => {
     .catch((error) => next(error));
 });
 
-router.get("/userProfile", (req, res) => {
-  res.render("users/user-profile", { userInSession: req.session.currentUser });
+router.get('/userProfile', isLoggedIn, (req, res) => {
+  res.render('users/user-profile', { userInSession: req.session.currentUser });
 });
 
 router.get("/userProfile", (req, res) => res.render("users/user-profile"));
