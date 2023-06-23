@@ -11,7 +11,7 @@ const User = require("../models/User.model");
 // GET route ==> to display the signup form to users
 router.get("/signup", (req, res) => res.render("auth/signup"));
 
-// POST route ==> to process form data
+// POST route ==> to process form data  
 router.post("/signup", (req, res, next) => {
   // console.log("The form data: ", req.body);
 
@@ -33,7 +33,7 @@ router.post("/signup", (req, res, next) => {
     })
     .then((userFromDB) => {
       // console.log("Newly created user is: ", userFromDB);
-      res.redirect("/userProfile");
+      res.redirect(`/user/${ userFromDB._id }`);
     })
     .catch((error) => next(error));
 });
