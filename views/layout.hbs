@@ -9,42 +9,61 @@
   </head>
 
   <body>
-    <!-- add the navbar code below -->
-    <nav>
 
-      <ul>
+    {{#if isLoggedIn}}
 
-        <li id="to-left">
+      <nav>
 
-          <p><a href="/"> Habitopia </a></p>
+        <ul>
 
-        </li>
+          <li id="to-left">
 
-       
-        <li id="to-right">
+            <p><a href="/"> Habitopia </a></p>
 
-          <a href="/">Home</a>
-          <a href="/checkin">Self check in</a>
-          <a href="/journal">Journal</a>
-          <a href="/habits">Habit Tracker</a>
+          </li>
+          <li id="to-right">
 
-         
-          <form id="logout-form" action="/logout" method="POST">
+            <a href="/userProfile">Home</a>
+            <a href="/checkin">Self check in</a>
+            <a href="/journal">Journal</a>
+            <a href="/habits">Habit Tracker</a>
 
-            <button>Logout</button>
+            <form id="logout-form" action="/logout" method="POST">
 
-          </form>
+              <button>Logout</button>
 
-        </li>
+            </form>
 
-  
-      </ul>
+          </li>
 
-    </nav>
+        </ul>
+
+      </nav>
+    {{else}}
+      <nav>
+
+        <ul>
+
+          <li id="to-left">
+
+            <p><a href="/"> Habitopia </a></p>
+
+            <li id="to-right">
+
+              <a href="/login">Log in</a>
+              <a href="/signup">Sign up</a>
+
+            </li>
+
+          </li>
+
+        </ul>
+
+      </nav>
+
+    {{/if}}
 
     {{{body}}}
-
-
 
     <script src="/js/script.js"></script>
   </body>
