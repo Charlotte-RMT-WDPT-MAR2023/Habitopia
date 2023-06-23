@@ -1,15 +1,6 @@
 # Habitopia
 
-In habit.model.js I've added a details field to the occurance section -  this would be e.g. distance for running, duration for yoga/meditation or volume for water drunk.
-
-We can push to the occurance array when a habit is done
-
-
 These sections below I haven't updated: Routes, Project, Trello and Slides
-
-
-
-
 
 
 
