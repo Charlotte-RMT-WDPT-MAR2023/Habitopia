@@ -1,16 +1,16 @@
-
+const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard.js');
 
 const router = require("express").Router();
 
 
 
-router.get("/checkin", (req, res) => res.render("users/check-in"));
-router.get("/journal", (req, res) => res.render("users/journal"));
-router.get("/habits", (req, res) => res.render("users/habits"));
-router.get("/addhabit", (req, res) => res.render("users/add-habit"));
-router.get("/track", (req, res) => res.render("users/track"));
-router.get("/details", (req, res) => res.render("users/details"));
-router.get("/success", (req, res) => res.render("users/success"));
+router.get("/checkin", isLoggedIn, (req, res) => res.render("users/check-in"));
+router.get("/journal", isLoggedIn, (req, res) => res.render("users/journal"));
+router.get("/habits", isLoggedIn, (req, res) => res.render("users/habits"));
+router.get("/addhabit", isLoggedIn, (req, res) => res.render("users/add-habit"));
+router.get("/track", isLoggedIn, (req, res) => res.render("users/track"));
+router.get("/details", isLoggedIn, (req, res) => res.render("users/details"));
+router.get("/success", isLoggedIn, (req, res) => res.render("users/success"));
 
 // Checkin
 
