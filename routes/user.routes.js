@@ -2,7 +2,7 @@ const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard.js');
 
 const router = require("express").Router();
 
-
+const { pushUps, water, yoga} = require("../models/HabitsTracker.model.js");
 
 router.get("/checkin", isLoggedIn, (req, res) => res.render("users/check-in"));
 router.get("/journal", isLoggedIn, (req, res) => res.render("users/journal"));
@@ -99,23 +99,40 @@ router.get("/journal", (req, res) => {
 
 // Habits Tracker
 
+//route to display the 3 habits to track
 router.get("/habits", (req, res) => {
-  Habit.find()
-  .sort({ name: 1 })
-  .exec()
-  .then((habits) => {
-    res.json({ habits });
-    })
-  })
+  res.render("habits.hbs");
+});
+
+//GET routes for each habit
+router.get("./pushups", (req, res) => {
+  res.render("pushup.hbs"), {pushUps};
+});
+
+router.get("/yoga", (req, res) => {
+  res.render("yoga.hbs", {yoga});
+})
+
+router.get("/water", (req, res) => {
+  res.render("water.hbs", {water})
+})
 
 
-  router.post('/track', (req, res) => {
-    const userData = req.body.userTrackingData;
-  //some more logic here to pass the info from each habit, one by one
-    res.render('track.hbs');
-  });
+//POST routes for each habit
+router.post("/track/pushups", (req, res) => {
+  const numberOf = res.body.numberOf;
+  res.redirect("/habits")
+})
 
+router.post("/track/water", (req, res) => {
+  const liters = req.body.liters;
+  res.redirect("/habits");
+});
 
+router.post("/track/yoga", (req, res) => {
+  const minutes = req.body.minutes;
+  res.redirect("/habits");
+});
 
 
 module.exports = router;
