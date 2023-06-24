@@ -100,38 +100,60 @@ router.get("/journal", (req, res) => {
 // Habits Tracker
 
 //route to display the 3 habits to track
-router.get("/habits", (req, res) => {
-  res.render("habits.hbs");
-});
+// router.get("/habits", (req, res) => {
+//   res.render("habits.hbs");
+// });
 
 //GET routes for each habit
-router.get("./pushups", (req, res) => {
-  res.render("pushup.hbs"), {pushUps};
+router.get("/pushups", (req, res) => {
+  res.render("users/pushup");
 });
 
 router.get("/yoga", (req, res) => {
-  res.render("yoga.hbs", {yoga});
+  res.render("users/yoga");
 })
 
 router.get("/water", (req, res) => {
-  res.render("water.hbs", {water})
+  res.render("users/water")
 })
 
 
 //POST routes for each habit
-router.post("/track/pushups", (req, res) => {
-  const numberOf = res.body.numberOf;
-  res.redirect("/habits")
-})
 
-router.post("/track/water", (req, res) => {
-  const liters = req.body.liters;
-  res.redirect("/habits");
+router.post("/pushups", (req, res) => {
+  const { numberOf } = req.body; 
+
+  const newPushUps = new pushUps({ numberOf });
+  newPushUps.save()
+    .then(() => {
+      res.redirect("/success");
+    })
+    .catch((error) => {
+      console.log("Error saving data:", error);
+      res.redirect("/error"); 
+    });
 });
 
-router.post("/track/yoga", (req, res) => {
-  const minutes = req.body.minutes;
-  res.redirect("/habits");
+
+router.post("/water", (req, res) => {
+  const { liters } = req.body;
+
+  const newLiters = new water ({ liters });
+  newLiters.save()
+    .then(() => {
+      res.redirect("/success"); 
+    }) 
+});
+
+
+router.post("/yoga", (req, res) => {
+  const {minutes } = req.body;
+
+  const newMinutes = new yoga ({ minutes });
+  newMinutes.save()
+    .then(() => {
+      res.redirect("/success"); 
+    })
 });
 
 

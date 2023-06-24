@@ -24,6 +24,7 @@ require("./config")(app);
 
 
 // 👇 Start handling routes here
+
 const index = require("./routes/index");
 app.use("/", index);
 
