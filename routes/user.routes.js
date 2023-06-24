@@ -105,31 +105,33 @@ router.get("/habits", (req, res) => {
 });
 
 //GET routes for each habit
-router.get("./pushups", (req, res) => {
-  res.render("pushup.hbs"), {pushUps};
+router.get("/habits/pushups", (req, res) => {
+  res.render("pushups.hbs");
 });
 
-router.get("/yoga", (req, res) => {
-  res.render("yoga.hbs", {yoga});
+router.get("/habits/yoga", (req, res) => {
+  res.render("yoga.hbs");
 })
 
-router.get("/water", (req, res) => {
-  res.render("water.hbs", {water})
+router.get("/habits/water", (req, res) => {
+  res.render("water.hbs")
 })
 
 
 //POST routes for each habit
-router.post("/track/pushups", (req, res) => {
-  const numberOf = res.body.numberOf;
-  res.redirect("/habits")
-})
 
-router.post("/track/water", (req, res) => {
+router.post("/habits/pushups", (req, res) => {
+  const numberOf = res.body.numberOf;
+  
+  res.redirect("/habits")
+});
+
+router.post("/habits/water", (req, res) => {
   const liters = req.body.liters;
   res.redirect("/habits");
 });
 
-router.post("/track/yoga", (req, res) => {
+router.post("/habits/yoga", (req, res) => {
   const minutes = req.body.minutes;
   res.redirect("/habits");
 });
