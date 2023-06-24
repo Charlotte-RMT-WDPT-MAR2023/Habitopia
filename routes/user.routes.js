@@ -2,7 +2,7 @@ const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard.js');
 
 const router = require("express").Router();
 
-
+const { pushUps, water, yoga} = require("../models/HabitsTracker.model.js");
 
 router.get("/checkin", isLoggedIn, (req, res) => res.render("users/check-in"));
 router.get("/journal", isLoggedIn, (req, res) => res.render("users/journal"));
@@ -96,6 +96,43 @@ router.get("/journal", (req, res) => {
 });
 
 
+
+// Habits Tracker
+
+//route to display the 3 habits to track
+router.get("/habits", (req, res) => {
+  res.render("habits.hbs");
+});
+
+//GET routes for each habit
+router.get("./pushups", (req, res) => {
+  res.render("pushup.hbs"), {pushUps};
+});
+
+router.get("/yoga", (req, res) => {
+  res.render("yoga.hbs", {yoga});
+})
+
+router.get("/water", (req, res) => {
+  res.render("water.hbs", {water})
+})
+
+
+//POST routes for each habit
+router.post("/track/pushups", (req, res) => {
+  const numberOf = res.body.numberOf;
+  res.redirect("/habits")
+})
+
+router.post("/track/water", (req, res) => {
+  const liters = req.body.liters;
+  res.redirect("/habits");
+});
+
+router.post("/track/yoga", (req, res) => {
+  const minutes = req.body.minutes;
+  res.redirect("/habits");
+});
 
 
 module.exports = router;
