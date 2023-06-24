@@ -8,7 +8,7 @@ const { pushUps, water, yoga } = require("../models/HabitsTracker.model.js");
 router.get("/habits", (req, res) => res.render("users/tracker/habits"));
 router.get("/addhabit", (req, res) => res.render("users/tracker/add-habit"));
 //router.get("/track", (req, res) => res.render("users/track"));
-router.get("/details", (req, res) => res.render("users/tracker/details")); // changed from details to entries
+router.get("/details", (req, res) => res.render("users/tracker/details"));
 
  
 // Habits Tracker
@@ -32,7 +32,7 @@ router.post("/pushups", (req, res) => {
   const newPushUps = new pushUps({ numberOf });
   newPushUps.save()
     .then(() => {
-      res.redirect("/success");
+      res.redirect("/entriespushup");
     })
     .catch((error) => {
       console.log("Error saving data:", error);
@@ -41,13 +41,14 @@ router.post("/pushups", (req, res) => {
 });
 
 
+
 router.post("/water", (req, res) => {
   const { liters } = req.body;
 
   const newLiters = new water ({ liters });
   newLiters.save()
     .then(() => {
-      res.redirect("/success"); 
+      res.redirect("/entrieswater"); 
     })
     .catch((error) => {
       console.log("Error saving data:", error);
@@ -59,25 +60,49 @@ router.post("/water", (req, res) => {
 router.post("/yoga", (req, res) => {
   const { minutes } = req.body;
 
-  const newMinutes = new yoga ({ minutes });
-  newMinutes.save()
+  const newMinutes = new yoga({ minutes });
+  newMinutes
+    .save()
     .then(() => {
-      res.redirect("/success"); 
+      res.redirect("/entriesyoga");
     })
     .catch((error) => {
       console.log("Error saving data:", error);
-      res.redirect("/error"); 
+      res.redirect("/error");
     });
 });
 
 
+
 //Get previous entries for each habit
 
-router.get('/details', async (req, res) => {
+router.get("/entriespushup", async (req, res) => {
   try {
-    
-    const entries = await pushUps.find();
-    res.render('previousEntries', { entries }); 
+    const entriesPushUps = await pushUps.find().sort({ createdAt: "desc" });
+
+    res.render("users/tracker/pushUpEntries", { entriesPushUps });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("An error occurred while retrieving previous entries.");
+  }
+});
+
+router.get("/entrieswater", async (req, res) => {
+  try {
+    const entriesWater = await water.find().sort({ createdAt: "desc" });
+
+    res.render("users/tracker/waterEntries", { entriesWater });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("An error occurred while retrieving previous entries.");
+  }
+});
+
+router.get("/entriesyoga", async (req, res) => {
+  try {
+    const entriesYoga = await yoga.find().sort({ createdAt: "desc" });
+
+    res.render("users/tracker/yogaEntries", { entriesYoga });
   } catch (error) {
     console.error(error);
     res.status(500).send("An error occurred while retrieving previous entries.");
@@ -85,6 +110,5 @@ router.get('/details', async (req, res) => {
 });
 
 
-router.get
 
 module.exports = router;
