@@ -106,7 +106,7 @@ router.get("/habits", (req, res) => {
 
 //GET routes for each habit
 router.get("/habits/pushups", (req, res) => {
-  res.render("pushups.hbs");
+  res.render("pushup.hbs");
 });
 
 router.get("/habits/yoga", (req, res) => {
@@ -121,19 +121,39 @@ router.get("/habits/water", (req, res) => {
 //POST routes for each habit
 
 router.post("/habits/pushups", (req, res) => {
-  const numberOf = res.body.numberOf;
-  
-  res.redirect("/habits")
+  const { numberOf } = req.body; 
+
+  const newPushUps = new pushUps({ numberOf });
+  newPushUps.save()
+    .then(() => {
+      res.redirect("/success");
+    })
+    .catch((error) => {
+      console.log("Error saving data:", error);
+      res.redirect("/error"); 
+    });
 });
+
 
 router.post("/habits/water", (req, res) => {
-  const liters = req.body.liters;
-  res.redirect("/habits");
+  const { liters } = req.body;
+
+  const newLiters = new water ({ liters });
+  newLiters.save()
+    .then(() => {
+      res.redirect("/success"); 
+    }) 
 });
 
+
 router.post("/habits/yoga", (req, res) => {
-  const minutes = req.body.minutes;
-  res.redirect("/habits");
+  const {minutes } = req.body;
+
+  const newMinutes = new yoga ({ minutes });
+  newMinutes.save()
+    .then(() => {
+      res.redirect("/success"); 
+    })
 });
 
 
