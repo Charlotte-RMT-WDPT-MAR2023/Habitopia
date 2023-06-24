@@ -1,6 +1,7 @@
 // ℹ️ Gets access to environment variables/settings
 // https://www.npmjs.com/package/dotenv
 require("dotenv/config");
+require('dotenv').config();
 
 // ℹ️ Connects to the database
 require("./db");
@@ -23,6 +24,7 @@ require("./config")(app);
 
 
 // 👇 Start handling routes here
+
 const index = require("./routes/index");
 app.use("/", index);
 

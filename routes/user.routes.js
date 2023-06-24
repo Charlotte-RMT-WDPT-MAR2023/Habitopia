@@ -2,7 +2,7 @@ const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard.js');
 
 const router = require("express").Router();
 
-
+const { pushUps, water, yoga} = require("../models/HabitsTracker.model.js");
 
 router.get("/checkin", isLoggedIn, (req, res) => res.render("users/check-in"));
 router.get("/journal", isLoggedIn, (req, res) => res.render("users/journal"));
@@ -96,6 +96,65 @@ router.get("/journal", (req, res) => {
 });
 
 
+
+// Habits Tracker
+
+//route to display the 3 habits to track
+router.get("/habits", (req, res) => {
+  res.render("habits.hbs");
+});
+
+//GET routes for each habit
+router.get("/habits/pushups", (req, res) => {
+  res.render("pushup.hbs");
+});
+
+router.get("/habits/yoga", (req, res) => {
+  res.render("yoga.hbs");
+})
+
+router.get("/habits/water", (req, res) => {
+  res.render("water.hbs")
+})
+
+
+//POST routes for each habit
+
+router.post("/habits/pushups", (req, res) => {
+  const { numberOf } = req.body; 
+
+  const newPushUps = new pushUps({ numberOf });
+  newPushUps.save()
+    .then(() => {
+      res.redirect("/success");
+    })
+    .catch((error) => {
+      console.log("Error saving data:", error);
+      res.redirect("/error"); 
+    });
+});
+
+
+router.post("/habits/water", (req, res) => {
+  const { liters } = req.body;
+
+  const newLiters = new water ({ liters });
+  newLiters.save()
+    .then(() => {
+      res.redirect("/success"); 
+    }) 
+});
+
+
+router.post("/habits/yoga", (req, res) => {
+  const {minutes } = req.body;
+
+  const newMinutes = new yoga ({ minutes });
+  newMinutes.save()
+    .then(() => {
+      res.redirect("/success"); 
+    })
+});
 
 
 module.exports = router;
