@@ -87,6 +87,8 @@ router.get("/entriespushup", async (req, res) => {
   }
 });
 
+
+
 router.get("/entrieswater", async (req, res) => {
   try {
     const entriesWater = await water.find().sort({ createdAt: "desc" });
