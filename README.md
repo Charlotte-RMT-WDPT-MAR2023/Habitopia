@@ -2,21 +2,17 @@
 
 These sections below I haven't updated: Routes, Project, Trello and Slides
 
-
-
-
-
 ## [See the App!](www.your-deploy-url-here.com)
 
 ![App Logo](your-image-logo-path-or-name)
 
 ## Description
 
-A digital bullet journal. Habitopia is a habit tracking app designed to easily capture and organize your thoughts, goals, and daily activities. 
- 
+A digital bullet journal. Habitopia is a habit tracking app designed to easily capture and organize your thoughts, goals, and daily activities.
+
 ## User Stories
 
-**NOTE -**  List here all the actions a user can do in the app. Example:
+**NOTE -** List here all the actions a user can do in the app. Example:
 
 - **homepage** - welcome to the website, log in or sign up.
 - **sign up** - create an account on Habitopia
@@ -25,7 +21,7 @@ A digital bullet journal. Habitopia is a habit tracking app designed to easily c
 - **journal** - Write a diary, notes, brain dump, poetry, the journal page is your place to be expressive, creative and free
 - **habit tracker** - Track your habits. Did you have enough water to drink today? Did you meet your goal of exercising 3 days this week? Keep a record of all the important things you want to achieve.
 - **success** - Your self check-in, journal entry or habits have been recorded succesfully.
-- **404** - 404 page to let you know that page doesn’t exist 
+- **404** - 404 page to let you know that page doesn’t exist
 - **500** - an error page to let you know something has gone wrong
 
 ## Backlog Functionalities
@@ -34,7 +30,7 @@ A digital bullet journal. Habitopia is a habit tracking app designed to easily c
 
 - **Search function** - search previous journal entries
 
-- **Records** - longest run, best week for meeting goals, longest streak 
+- **Records** - longest run, best week for meeting goals, longest streak
 
 - **Custom habits** - add your own habits to track, including selecting an image to track it
 
@@ -42,10 +38,9 @@ A digital bullet journal. Habitopia is a habit tracking app designed to easily c
 
 HTML, CSS, Javascript, Node, Express, Handlebars, Sessions & Cookies
 
-
 ## Routes
 
-- GET / 
+- GET /
   - renders the homepage
 - GET /auth/signup
   - redirects to / if user logged in
@@ -60,18 +55,27 @@ HTML, CSS, Javascript, Node, Express, Handlebars, Sessions & Cookies
   - redirects to / if user logged in
   - renders the login form (with flash msg)
 - POST /auth/login
+
   - redirects to / if user logged in
   - body:
     - username
     - password
 
+- GET/checkin
+
+  - renders checkin page
+
+- POST/checkin
+
+  - saves check in status
+
+- GET/checkin
+  - renders checkin status info on user profile
 
 ## Models
 
-
-
 User model
- 
+
 ```
 username: String
 email: String
@@ -83,7 +87,7 @@ Checkin model
 ```
 mood: String
 date: Date
-``` 
+```
 
 Journal model
 
@@ -92,7 +96,7 @@ title: String
 content: String
 createdAt: Date
 updatedAt: Date
-``` 
+```
 
 Habit model
 
@@ -102,7 +106,7 @@ goal: String
 occurences:
    date: Date
    details: String
-``` 
+```
 
 ## Links
 
@@ -125,5 +129,3 @@ occurences:
 ### Slides
 
 [Slides Link](www.your-slides-url-here.com)
-
-
