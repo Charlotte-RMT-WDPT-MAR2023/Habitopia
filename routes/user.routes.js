@@ -100,27 +100,27 @@ router.get("/journal", (req, res) => {
 // Habits Tracker
 
 //route to display the 3 habits to track
-router.get("/habits", (req, res) => {
-  res.render("habits.hbs");
-});
+// router.get("/habits", (req, res) => {
+//   res.render("habits.hbs");
+// });
 
 //GET routes for each habit
-router.get("/habits/pushups", (req, res) => {
-  res.render("pushup.hbs");
+router.get("/pushups", (req, res) => {
+  res.render("users/pushup");
 });
 
-router.get("/habits/yoga", (req, res) => {
-  res.render("yoga.hbs");
+router.get("/yoga", (req, res) => {
+  res.render("users/yoga");
 })
 
-router.get("/habits/water", (req, res) => {
-  res.render("water.hbs")
+router.get("/water", (req, res) => {
+  res.render("users/water")
 })
 
 
 //POST routes for each habit
 
-router.post("/habits/pushups", (req, res) => {
+router.post("/pushups", (req, res) => {
   const { numberOf } = req.body; 
 
   const newPushUps = new pushUps({ numberOf });
@@ -135,7 +135,7 @@ router.post("/habits/pushups", (req, res) => {
 });
 
 
-router.post("/habits/water", (req, res) => {
+router.post("/water", (req, res) => {
   const { liters } = req.body;
 
   const newLiters = new water ({ liters });
@@ -146,7 +146,7 @@ router.post("/habits/water", (req, res) => {
 });
 
 
-router.post("/habits/yoga", (req, res) => {
+router.post("/yoga", (req, res) => {
   const {minutes } = req.body;
 
   const newMinutes = new yoga ({ minutes });
