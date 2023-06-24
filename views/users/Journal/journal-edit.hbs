@@ -1,0 +1,14 @@
+<h2>Edit Journal</h2>
+<h2>{{createdAt}}</h2>
+
+<form action="/journal/{{journal._id}}/edit" method="post">
+
+  <label>
+
+    <input type="text" name="content" value="{{content}}" />
+
+  </label>
+
+  <button>Save changes</button>
+
+</form>
