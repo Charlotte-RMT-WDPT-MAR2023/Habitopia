@@ -1,0 +1,31 @@
+<h1>Journal Entries</h1>
+
+ 
+
+{{#each journals}}
+
+  <div>
+
+    <h3>{{createdAt}}</h3>
+
+
+<p>{{content}}</p>
+
+    <a href="/journal/{{_id}}">See details</a> 
+
+    <a href="/journal/{{_id}}/edit">Edit</a> 
+
+    <form action="/journal/{{_id}}/delete" method="POST">
+
+      <button>Delete</button>
+
+    </form>
+
+  </div>
+
+{{/each}}
+
+<script src="/js/date.js"></script>
+<script src="/js/journal.js"></script>
+
+{{!-- {{formateDate createdAt}} {{truncateString content 140}} --}}

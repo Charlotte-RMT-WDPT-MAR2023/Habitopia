@@ -1,36 +1,37 @@
-const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard.js');
+const { isLoggedIn, isLoggedOut } = require("../middleware/route-guard.js");
 
 const router = require("express").Router();
 
-const { pushUps, water, yoga} = require("../models/HabitsTracker.model.js");
+const { pushUps, water, yoga } = require("../models/HabitsTracker.model.js");
 
 router.get("/checkin", isLoggedIn, (req, res) => res.render("users/check-in"));
-router.get("/journal", isLoggedIn, (req, res) => res.render("users/journal"));
-router.get("/habits", isLoggedIn, (req, res) => res.render("users/habits"));
-router.get("/addhabit", isLoggedIn, (req, res) => res.render("users/add-habit"));
-router.get("/track", isLoggedIn, (req, res) => res.render("users/track"));
-router.get("/details", isLoggedIn, (req, res) => res.render("users/details"));
-router.get("/success", isLoggedIn, (req, res) => res.render("users/success"));
+router.get("/habits", (req, res) => res.render("users/habits"));
+router.get("/addhabit", (req, res) => res.render("users/add-habit"));
+router.get("/track", (req, res) => res.render("users/track"));
+router.get("/details", (req, res) => res.render("users/details"));
+router.get("/success", (req, res) => res.render("users/success"));
+
 
 // Checkin
 
 const Checkin = require("../models/Checkin.model");
 
 router.post("/check-in", (req, res) => {
-  const mood = req.body.scale; 
+  const mood = req.body.scale;
 
-  const checkin = new Checkin({ 
-    mood 
-   });
+  const checkin = new Checkin({
+    mood,
+  });
 
-  checkin.save()
+  checkin
+    .save()
     .then(() => {
       console.log("Check-in saved successfully");
-      res.redirect("/success"); 
+      res.redirect("/success");
     })
     .catch((error) => {
       console.log("Error saving check-in:", error);
-      res.redirect("/error"); 
+      res.redirect("/error");
     });
 });
 
@@ -48,91 +49,92 @@ router.get("/user-profile", (req, res) => {
     });
 });
 
-
-
 // Journal
-
+// Save
 
 const Journal = require("../models/Journal.model");
 
 router.post("/journal", (req, res) => {
   const { content } = req.body;
 
-  console.log(req.body); // Log the req.body object
+  const newJournalEntry = new Journal({ content });
 
-  const newJournalEntry = new Journal({ content  });
-
-  newJournalEntry.save()
+  newJournalEntry
+    .save()
     .then(() => {
       console.log("Journal entry saved successfully");
-      res.redirect("/success"); 
+      res.redirect("/success");
     })
     .catch((error) => {
       console.log("Error saving journal entry:", error);
-      res.redirect("/error"); 
+      res.redirect("/error");
     });
 });
 
+// show last
 
+router.get("/journal", async (req, res) => {
+  try {
+    const currentEntryCreatedAt = new Date();
+    console.log("Current Entry CreatedAt:", currentEntryCreatedAt);
+    console.log(typeof currentEntryCreatedAt);
 
-
-router.get("/journal", (req, res) => {
-  console.log(req.query); // Log the query parameters to the console
-
-  Journal.findOne()
-    .sort({ createdAt: -1 })
-    .exec()
-    .then((previousEntry) => {
-      if (previousEntry) {
-        res.render("journal", { previousEntryContent: previousEntry.content, createdAt: previousEntry.createdAt });
-      } else {
-        res.render("journal", { previousEntryContent: null, createdAt: null });
-      }
+    const previousEntry = await Journal.findOne({
+      createdAt: { $lt: currentEntryCreatedAt },
     })
-    .catch((error) => {
-      console.log("Error fetching previous journal entry:", error);
-      res.status(500).json({ error: "Internal Server Error" });
+      .sort({ createdAt: -1 })
+      .exec();
+
+    if (!previousEntry) {
+      console.log("No previous entry found.");
+      return res.send("No previous entry found.");
+    }
+
+    console.log("Previous Entry Content:", previousEntry.content);
+
+    return res.render("users/journal", {
+      createdAt: previousEntry.createdAt,
+      content: previousEntry.content,
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    return res
+      .status(500)
+      .send("An error occurred while retrieving the previous entry.");
+  }
+});
+
+// list all
+router.get('/journallist', (req, res, next) => {
+  Journal.find()
+  .sort({ createdAt: -1 })
+    .then(allJournalsFromDB => {
+      console.log('Retrieved journals from DB:', allJournalsFromDB);
+      res.render('users/journal-list', { journals: allJournalsFromDB });
+      
+    })
+    .catch(error => {
+      console.log('Error while getting the journals from the DB: ', error);
+      res.status(500).send("An error occurred while retrieving the journal entries.");
     });
 });
 
+//details
 
+router.get('/journal/:journalId', (req, res) => {
+  
+  const { journalIdId } = req.params;
 
-// Habits Tracker
-
-//route to display the 3 habits to track
-router.get("/habits", (req, res) => {
-  res.render("habits.hbs");
+  console.log('The ID from the URL is: ', journalId);
+  
+  res.render('journal/journal-details.hbs')
 });
 
-//GET routes for each habit
-router.get("./pushups", (req, res) => {
-  res.render("pushup.hbs"), {pushUps};
-});
-
-router.get("/yoga", (req, res) => {
-  res.render("yoga.hbs", {yoga});
-})
-
-router.get("/water", (req, res) => {
-  res.render("water.hbs", {water})
-})
 
 
-//POST routes for each habit
-router.post("/track/pushups", (req, res) => {
-  const numberOf = res.body.numberOf;
-  res.redirect("/habits")
-})
-
-router.post("/track/water", (req, res) => {
-  const liters = req.body.liters;
-  res.redirect("/habits");
-});
-
-router.post("/track/yoga", (req, res) => {
-  const minutes = req.body.minutes;
-  res.redirect("/habits");
-});
-
+ 
 
 module.exports = router;
+
+module.exports = router;
+
