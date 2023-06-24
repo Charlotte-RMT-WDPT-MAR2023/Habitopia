@@ -70,9 +70,7 @@ router.post("/journal", (req, res) => {
 router.get("/journal", async (req, res) => {
   try {
     const currentEntryCreatedAt = new Date();
-    console.log("Current Entry CreatedAt:", currentEntryCreatedAt);
-    console.log(typeof currentEntryCreatedAt);
-
+   
     const previousEntry = await Journal.findOne({
       createdAt: { $lt: currentEntryCreatedAt },
     })
@@ -84,7 +82,6 @@ router.get("/journal", async (req, res) => {
       return res.send("No previous entry found.");
     }
 
-    console.log("Previous Entry Content:", previousEntry.content);
 
     return res.render("users/journal", {
       createdAt: previousEntry.createdAt,
@@ -103,7 +100,6 @@ router.get("/journallist", (req, res, next) => {
   Journal.find()
     .sort({ createdAt: -1 })
     .then((allJournalsFromDB) => {
-      console.log("Retrieved journals from DB:", allJournalsFromDB);
       res.render("users/journal/journal-list", { journals: allJournalsFromDB });
     })
     .catch((error) => {
