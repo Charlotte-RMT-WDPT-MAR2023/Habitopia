@@ -117,16 +117,15 @@ router.get("/journal/:journalId", (req, res) => {
 
   Journal.findById(journalId)
     .then((theJournal) => {
-      res.render("users/journal/journal-details.hbs", { journals: theJournal });
+      res.render("users/journal/journal-details", { journal: theJournal });
       console.log("Journal details:", theJournal);
     })
     .catch((error) => {
       console.log("Error while retrieving journal details: ", error);
-      res
-        .status(500)
-        .send("An error occurred while retrieving the journal details.");
+      res.status(500).send("An error occurred while retrieving the journal details.");
     });
 });
+
 
 //edit
 
@@ -142,20 +141,23 @@ router.get("/journal/:journalId/edit", (req, res, next) => {
     .catch((error) => next(error));
 });
 
+
+
+
 // save changes
 
 router.post("/journal/:journalId/edit", (req, res, next) => {
   const { journalId } = req.params;
-
   const { content } = req.body;
 
-  Journal.findByIdAndUpdate(JournalId, { content }, { new: true })
-
-    .then((updatedJournal) =>
-      res.redirect(`/users/journal/${updatedJournal.id}`)
-    )
-
-    .catch((error) => next(error));
+  Journal.findByIdAndUpdate(journalId, { content }, { new: true })
+    .then((updatedJournal) => {
+      res.redirect(`/journal/${updatedJournal._id}`);
+    })
+    .catch((error) => {
+      console.log("Error while updating journal: ", error);
+      next(error);
+    });
 });
 
 // delete
