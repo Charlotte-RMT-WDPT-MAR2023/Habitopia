@@ -18,7 +18,7 @@ const waterHabitSchema = new mongoose.Schema({
 
 const yogaHabitSchema = new mongoose.Schema({
  
-  duration: { type: Number, required: true }
+  minutes: { type: Number, required: true }
 
 });
 
