@@ -70,9 +70,7 @@ router.post("/journal", (req, res) => {
 router.get("/journal", async (req, res) => {
   try {
     const currentEntryCreatedAt = new Date();
-    console.log("Current Entry CreatedAt:", currentEntryCreatedAt);
-    console.log(typeof currentEntryCreatedAt);
-
+   
     const previousEntry = await Journal.findOne({
       createdAt: { $lt: currentEntryCreatedAt },
     })
@@ -84,7 +82,6 @@ router.get("/journal", async (req, res) => {
       return res.send("No previous entry found.");
     }
 
-    console.log("Previous Entry Content:", previousEntry.content);
 
     return res.render("users/journal", {
       createdAt: previousEntry.createdAt,
@@ -103,8 +100,7 @@ router.get("/journallist", (req, res, next) => {
   Journal.find()
     .sort({ createdAt: -1 })
     .then((allJournalsFromDB) => {
-      console.log("Retrieved journals from DB:", allJournalsFromDB);
-      res.render("users/journal-list", { journals: allJournalsFromDB });
+      res.render("users/journal/journal-list", { journals: allJournalsFromDB });
     })
     .catch((error) => {
       console.log("Error while getting the journals from the DB: ", error);
@@ -117,11 +113,67 @@ router.get("/journallist", (req, res, next) => {
 //details
 
 router.get("/journal/:journalId", (req, res) => {
-  const { journalIdId } = req.params;
+  const { journalId } = req.params;
 
-  console.log("The ID from the URL is: ", journalId);
+  Journal.findById(journalId)
+    .then((theJournal) => {
+      res.render("users/journal/journal-details", { journal: theJournal });
+      console.log("Journal details:", theJournal);
+    })
+    .catch((error) => {
+      console.log("Error while retrieving journal details: ", error);
+      res.status(500).send("An error occurred while retrieving the journal details.");
+    });
+});
 
-  res.render("journal/journal-details.hbs");
+
+//edit
+
+router.get("/journal/:journalId/edit", (req, res, next) => {
+  const { journalId } = req.params;
+
+  Journal.findById(journalId)
+
+    .then((journalToEdit) => {
+      res.render("users/journal/journal-edit.hbs", { journal: journalToEdit });
+    })
+
+    .catch((error) => next(error));
+});
+
+
+
+
+// save changes
+
+router.post("/journal/:journalId/edit", (req, res, next) => {
+  const { journalId } = req.params;
+  const { content } = req.body;
+
+  Journal.findByIdAndUpdate(journalId, { content }, { new: true })
+    .then((updatedJournal) => {
+      res.redirect(`/journal/${updatedJournal._id}`);
+    })
+    .catch((error) => {
+      console.log("Error while updating journal: ", error);
+      next(error);
+    });
+});
+
+// delete
+
+router.post('/journal/:journalId/delete', (req, res, next) => {
+
+  const { journalId } = req.params;
+
+ 
+
+  Journal.findByIdAndDelete(journalId)
+
+    .then(() => res.redirect('/journallist'))
+
+    .catch(error => next(error));
+
 });
 
 module.exports = router;
