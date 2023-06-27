@@ -2,12 +2,13 @@ const { isLoggedIn, isLoggedOut } = require("../middleware/route-guard.js");
 
 const router = require("express").Router();
 
-const { pushUps, water, yoga } = require("../models/HabitsTracker.model.js");
+//imports package "moment" to format date
+const moment = require('moment');
 
+const { pushUps, water, yoga } = require("../models/HabitsTracker.model.js");
 
 router.get("/habits", (req, res) => res.render("users/tracker/habits"));
 router.get("/addhabit", (req, res) => res.render("users/tracker/add-habit"));
-//router.get("/track", (req, res) => res.render("users/track"));
 router.get("/details", (req, res) => res.render("users/tracker/details"));
 
  
@@ -73,7 +74,6 @@ router.post("/yoga", (req, res) => {
 });
 
 
-
 //Get previous entries for each habit
 
 router.get("/entriespushup", async (req, res) => {
@@ -86,7 +86,6 @@ router.get("/entriespushup", async (req, res) => {
     res.status(500).send("An error occurred while retrieving previous entries.");
   }
 });
-
 
 
 router.get("/entrieswater", async (req, res) => {
@@ -110,6 +109,42 @@ router.get("/entriesyoga", async (req, res) => {
     res.status(500).send("An error occurred while retrieving previous entries.");
   }
 });
+
+
+
+
+
+//Charlotte journal date format code:
+
+router.get("/entriesyoga", async (req, res) => {
+  try {
+    const currentEntryCreatedAt = new Date();
+   
+    const previousEntry = await entriesYoga.findOne({
+      createdAt: { $lt: currentEntryCreatedAt },
+    })
+      .sort({ createdAt: -1 })
+      .exec();
+
+    if (!previousEntry) {
+      console.log("No previous entry found.");
+      return res.send("No previous entry found.");
+    }
+    const today = new Date();
+    const options = {weekday: "short",  year: "numeric", month: "long", day: "numeric" };
+
+    return res.render("users/tracker/yogaEntries", {
+      createdAt: new Date(previousEntry.createdAt).toLocaleDateString("en-US", options),
+      content: previousEntry.content,
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    return res
+      .status(500)
+      .send("An error occurred while retrieving the previous entry.");
+  }
+});
+
 
 
 
