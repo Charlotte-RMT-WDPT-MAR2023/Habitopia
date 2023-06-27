@@ -1,3 +1,11 @@
-/*document.getElementById('edit-button').addEventListener('click', function() {
-  document.getElementById('journal-form').submit();
+/*
+
+
+
+hbs.registerHelper('truncateString', function (str, maxLength) {
+  if (str.length > maxLength) {
+    return str.substring(0, maxLength) + '...';
+  } else {
+    return str;
+  }
 });*/

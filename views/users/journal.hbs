@@ -1,32 +1,29 @@
 <section class="journal-container">
   <form id="journal-form" action="/journal" method="GET">
     <div class="entry">
-      <div class="entry-date">June 19, 2023</div>
-      <div >
-        <textarea name="content" class="entry-content">{{ previousEntryContent }}</textarea>
+      <div class="entry-date">{{createdAt}}</div>
+      <div>
+        <textarea name="content" class="entry-content" id="entry-content" readonly>{{content}}</textarea>
       </div>
       <br>
-      <button class="button" type="submit" id="edit-button">Edit</button>
+      <a href="/journallist" class="button" type="button" id="edit-button">View and edit journal entries</a>
     </div>
   </form>
 
 
 
-
-<form action="/journal" method="POST">
-  <div class="entry">
-    <div class="entry-date" id="new-entry-date"></div>
-    <div >
-      <textarea name="content" placeholder="What do you want to write today?" class="entry-content"></textarea>
+  <form action="/journal" method="POST">
+    <div class="entry">
+      <div class="entry-date" id="new-entry-date"></div>
+      <div>
+        <textarea name="content" placeholder="What do you want to write today?" class="entry-content"></textarea>
+      </div>
+      <br>
+      <button class="button" type="submit">Save</button>
     </div>
-    <br>
-    <button class="button" type="submit">Save</button>
-  </div>
-</form>
-
-
-  
+  </form>
 </section>
+
 
 
 

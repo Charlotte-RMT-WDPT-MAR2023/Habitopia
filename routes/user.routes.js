@@ -1,100 +1,115 @@
-const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard.js');
+const { isLoggedIn, isLoggedOut } = require("../middleware/route-guard.js");
 
 const router = require("express").Router();
 
+const { pushUps, water, yoga } = require("../models/HabitsTracker.model.js");
 
 
-router.get("/checkin", isLoggedIn, (req, res) => res.render("users/check-in"));
-router.get("/journal", isLoggedIn, (req, res) => res.render("users/journal"));
-router.get("/habits", isLoggedIn, (req, res) => res.render("users/habits"));
-router.get("/addhabit", isLoggedIn, (req, res) => res.render("users/add-habit"));
-router.get("/track", isLoggedIn, (req, res) => res.render("users/track"));
-router.get("/details", isLoggedIn, (req, res) => res.render("users/details"));
-router.get("/success", isLoggedIn, (req, res) => res.render("users/success"));
+router.get("/habits", (req, res) => res.render("users/tracker/habits"));
+router.get("/addhabit", (req, res) => res.render("users/tracker/add-habit"));
+//router.get("/track", (req, res) => res.render("users/track"));
+router.get("/details", (req, res) => res.render("users/tracker/details"));
 
-// Checkin
+ 
+// Habits Tracker
+router.get("/pushups", (req, res) => {
+  res.render("users/tracker/pushup");
+});
 
-const Checkin = require("../models/Checkin.model");
+router.get("/yoga", (req, res) => {
+  res.render("users/tracker/yoga");
+})
 
-router.post("/check-in", (req, res) => {
-  const mood = req.body.scale; 
+router.get("/water", (req, res) => {
+  res.render("users/tracker/water")
+})
 
-  const checkin = new Checkin({ 
-    mood 
-   });
 
-  checkin.save()
+//POST routes for each habit
+router.post("/pushups", (req, res) => {
+  const { numberOf } = req.body; 
+
+  const newPushUps = new pushUps({ numberOf });
+  newPushUps.save()
     .then(() => {
-      console.log("Check-in saved successfully");
-      res.redirect("/success"); 
+      res.redirect("/entriespushup");
     })
     .catch((error) => {
-      console.log("Error saving check-in:", error);
+      console.log("Error saving data:", error);
       res.redirect("/error"); 
     });
 });
 
-router.get("/user-profile", (req, res) => {
-  Checkin.find()
-    .sort({ date: -1 })
-    .limit(7)
-    .exec()
-    .then((checkins) => {
-      res.json({ checkins });
+
+
+router.post("/water", (req, res) => {
+  const { liters } = req.body;
+
+  const newLiters = new water ({ liters });
+  newLiters.save()
+    .then(() => {
+      res.redirect("/entrieswater"); 
     })
     .catch((error) => {
-      console.log("Error fetching check-ins:", error);
+      console.log("Error saving data:", error);
+      res.redirect("/error"); 
+    });
+});
+
+
+router.post("/yoga", (req, res) => {
+  const { minutes } = req.body;
+
+  const newMinutes = new yoga({ minutes });
+  newMinutes
+    .save()
+    .then(() => {
+      res.redirect("/entriesyoga");
+    })
+    .catch((error) => {
+      console.log("Error saving data:", error);
       res.redirect("/error");
     });
 });
 
 
 
-// Journal
+//Get previous entries for each habit
 
+router.get("/entriespushup", async (req, res) => {
+  try {
+    const entriesPushUps = await pushUps.find().sort({ createdAt: "desc" });
 
-const Journal = require("../models/Journal.model");
-
-router.post("/journal", (req, res) => {
-  const { content } = req.body;
-
-  console.log(req.body); // Log the req.body object
-
-  const newJournalEntry = new Journal({ content  });
-
-  newJournalEntry.save()
-    .then(() => {
-      console.log("Journal entry saved successfully");
-      res.redirect("/success"); 
-    })
-    .catch((error) => {
-      console.log("Error saving journal entry:", error);
-      res.redirect("/error"); 
-    });
+    res.render("users/tracker/pushUpEntries", { entriesPushUps });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("An error occurred while retrieving previous entries.");
+  }
 });
 
 
 
+router.get("/entrieswater", async (req, res) => {
+  try {
+    const entriesWater = await water.find().sort({ createdAt: "desc" });
 
-router.get("/journal", (req, res) => {
-  console.log(req.query); // Log the query parameters to the console
-
-  Journal.findOne()
-    .sort({ createdAt: -1 })
-    .exec()
-    .then((previousEntry) => {
-      if (previousEntry) {
-        res.render("journal", { previousEntryContent: previousEntry.content, createdAt: previousEntry.createdAt });
-      } else {
-        res.render("journal", { previousEntryContent: null, createdAt: null });
-      }
-    })
-    .catch((error) => {
-      console.log("Error fetching previous journal entry:", error);
-      res.status(500).json({ error: "Internal Server Error" });
-    });
+    res.render("users/tracker/waterEntries", { entriesWater });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("An error occurred while retrieving previous entries.");
+  }
 });
 
+router.get("/entriesyoga", async (req, res) => {
+  try {
+    const entriesYoga = await yoga.find().sort({ createdAt: "desc" });
+
+    res.render("users/tracker/yogaEntries", { entriesYoga });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("An error occurred while retrieving previous entries.");
+  }
+});
 
 
 
