@@ -1,6 +1,9 @@
-<h1>Previous Entries</h1>
+<h1>Water: Previous Entries</h1>
 <ul>
-  {{#each entriesPushUp}}
-    <li>Number of Push-Ups: {{this.numberOf}}</li>
-  {{/each}}
+  {{#each entriesWater}}
+    <li>
+      Date: {{this.createdAt}}
+      Liters: {{this.liters}}
+    </li>
+  {{/each}} 
 </ul>

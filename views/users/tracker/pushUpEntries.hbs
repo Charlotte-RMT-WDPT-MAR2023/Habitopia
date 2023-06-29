@@ -1,6 +1,9 @@
-<h1>Previous Entries</h1>
+<h1>Push-Up: Previous Entries</h1>
 <ul>
-  {{#each entriesPushUp}}
-    <li>Number of Push-Ups: {{this.numberOf}}</li>
+  {{#each entriesPushUps}}
+    <li>
+      Date: {{this.createdAt}}
+      Number of Push-Ups: {{this.numberOf}}
+    </li>
   {{/each}}
 </ul>

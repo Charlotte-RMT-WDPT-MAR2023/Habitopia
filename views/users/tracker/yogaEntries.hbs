@@ -1,6 +1,9 @@
-<h1>Previous Entries</h1>
+<h1>Yoga: Previous Entries</h1>
 <ul>
-  {{#each entriesyoga}}
-    <li>Number of Push-Ups: {{this.minutes}}</li>
+  {{#each entriesYoga}}
+    <li>
+      Date: {{this.createdAt}}
+      Duration (in minutes): {{this.minutes}}
+    </li>
   {{/each}}
 </ul>
