@@ -8,14 +8,14 @@ router.get("/success", isLoggedIn, (req, res) => res.render("users/success"));
 
 const Checkin = require("../models/Checkin.model");
 
-router.get("/checkin", isLoggedIn, (req, res) => res.render("users/check-in/check-in" ));
+router.get("/checkin", isLoggedIn, (req, res) =>
+  res.render("users/check-in/check-in")
+);
 router.post("/check-in", (req, res) => {
   const mood = req.body.scale;
-  const userId = req.user._id; // Extract the logged-in user ID
 
   const checkin = new Checkin({
     mood,
-    user: userId, // Associate the check-in with the logged-in user
   });
 
   const successMessage = "Check-in saved successfully";
@@ -31,8 +31,6 @@ router.post("/check-in", (req, res) => {
       res.redirect("/error");
     });
 });
-
-
 
 router.get("/user-profile", (req, res) => {
   Checkin.find()
@@ -58,14 +56,13 @@ router.post("/journal", (req, res) => {
 
   const newJournalEntry = new Journal({ content });
 
-  
   const successMessage = "Journal entry saved successfully";
 
   newJournalEntry
     .save()
     .then(() => {
       console.log(successMessage);
-      res.render("users/journal/journal-success" , {successMessage});
+      res.render("users/journal/journal-success", { successMessage });
     })
     .catch((error) => {
       console.log("Error saving journal entry:", error);
@@ -75,10 +72,10 @@ router.post("/journal", (req, res) => {
 
 // show last
 
-router.get("/journal" , isLoggedIn,  async (req, res) => {
+router.get("/journal", isLoggedIn, async (req, res) => {
   try {
     const currentEntryCreatedAt = new Date();
-   
+
     const previousEntry = await Journal.findOne({
       createdAt: { $lt: currentEntryCreatedAt },
     })
@@ -90,10 +87,18 @@ router.get("/journal" , isLoggedIn,  async (req, res) => {
       return res.send("No previous entry found.");
     }
     const today = new Date();
-    const options = {weekday: "short",  year: "numeric", month: "long", day: "numeric" };
+    const options = {
+      weekday: "short",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
 
     return res.render("users/journal/journal", {
-      createdAt: new Date(previousEntry.createdAt).toLocaleDateString("en-US", options),
+      createdAt: new Date(previousEntry.createdAt).toLocaleDateString(
+        "en-US",
+        options
+      ),
       content: previousEntry.content,
     });
   } catch (error) {
@@ -131,10 +136,11 @@ router.get("/journal/:journalId", isLoggedIn, (req, res) => {
     })
     .catch((error) => {
       console.log("Error while retrieving journal details: ", error);
-      res.status(500).send("An error occurred while retrieving the journal details.");
+      res
+        .status(500)
+        .send("An error occurred while retrieving the journal details.");
     });
 });
-
 
 //edit
 
@@ -149,9 +155,6 @@ router.get("/journal/:journalId/edit", isLoggedIn, (req, res, next) => {
 
     .catch((error) => next(error));
 });
-
-
-
 
 // save changes
 
@@ -171,21 +174,14 @@ router.post("/journal/:journalId/edit", (req, res, next) => {
 
 // delete
 
-router.post('/journal/:journalId/delete', (req, res, next) => {
-
+router.post("/journal/:journalId/delete", (req, res, next) => {
   const { journalId } = req.params;
-
- 
 
   Journal.findByIdAndDelete(journalId)
 
-    .then(() => res.redirect('/journallist'))
+    .then(() => res.redirect("/journallist"))
 
-    .catch(error => next(error));
-
+    .catch((error) => next(error));
 });
-
-
-
 
 module.exports = router;
