@@ -74,3 +74,22 @@ window.addEventListener("DOMContentLoaded", () => {
       console.log("Error fetching check-ins:", error);
     });
 });
+
+///day of week
+
+ 
+window.addEventListener("DOMContentLoaded", () => {
+  const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const today = new Date().getDay(); // Get the current day (0-6)
+
+  const dayDivs = document.querySelectorAll('.day'); // Select all elements with class 'day'
+
+  dayDivs.forEach((div, index) => {
+    const dayIndex = (today - 6 + index + 7) % 7; // Calculate the index of the day in daysOfWeek array
+
+    const dayElement = document.createElement("span");
+    dayElement.textContent = daysOfWeek[dayIndex];
+
+    div.appendChild(dayElement);
+  });
+});

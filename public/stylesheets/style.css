@@ -5,17 +5,30 @@ body {
   font: 14px "Ubuntu";
 }
 
-h1 {
+h1, h2, p, div {
   margin: 30px auto;
-  width: 380px;
+  width: 360px;
   text-align: center;
 }
 
+
+
 a {
-  color: #3bd081;
+  color: #B9775B;
   text-decoration: none;
   font-size: 1.5em;
 }
+
+h6 {
+  font-size: 1.5em;
+}
+
+h6 a.signup-link {
+  color: #B9775B;
+  text-decoration: none;
+  font-size: inherit;
+}
+
 
 form {
   margin: 30px auto;
@@ -42,8 +55,8 @@ form button,
 }
 
 form button, .button {
-  background: #3bd081;
-  border: 1px solid #3bd081;
+  background: #B9775B;
+  border: 1px solid #B9775B;
   border-radius: 4px;
   color: #fff;
   cursor: pointer;
@@ -118,6 +131,24 @@ ul li {
   width: 120px;
 }
 
+.container {
+  box-sizing: border-box;
+  font-size: 14px;
+  outline: 0;
+  padding: 4px;
+  width: 100%;
+  margin-bottom: 20px;
+  border: 1px solid #FEEBDC;
+  margin: 30px auto;
+  width: 440px;
+  text-align: center;
+  background-color: #FEEBDC;
+}
+
+#motivation {
+  height: 150px;
+}
+
 .emojis {
   display: flex;
   justify-content: space-between;
@@ -128,6 +159,8 @@ ul li {
 .emoji {
   font-size: 20px;
 }
+
+
 
 /* Journal */
 
@@ -144,9 +177,9 @@ ul li {
   padding: 10px;
 }
 
-.entry {
+/*.entry {
   padding: 10px;
-}
+}*/
 
 .entry-date {
   text-align: center;
@@ -184,3 +217,35 @@ ul li {
   width: 380px;
 }
 
+/* homepage */
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0.3; 
+}
+
+#form {
+  position: relative;
+  z-index: 1;
+}
+
+h3 {
+  margin: 30px auto;
+  width: 380px;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+.days{
+  display: flex;
+}
+.profile-trackers {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
+}

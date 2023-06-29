@@ -1,27 +1,32 @@
+<img class = "background" src="./images/background.jpg" alt="habits">
+
+
 <section class="journal-container">
+  <section class="container">
   <form id="journal-form" action="/journal" method="GET">
-    <div class="entry">
-      <div class="entry-date" id="created-at">{{createdAt}}</div>
+    <section class="entry">
+      <h2 class="entry-date" id="created-at">{{createdAt}}</h2>
       <div>
         <textarea name="content" class="entry-content" id="entry-content" readonly>{{content}}</textarea>
       </div>
       <br>
       <a href="/journallist" class="button" type="button" id="edit-button">View and edit journal entries</a>
-    </div>
+    </section>
   </form>
+</section>
 
-
-
+<section class="container">
   <form action="/journal" method="POST">
-    <div class="entry">
-      <div class="entry-date" id="new-entry-date"></div>
+    <section class="entry">
+      <h2 class="entry-date" id="new-entry-date"></h2>
       <div>
         <textarea name="content" placeholder="What do you want to write today?" class="entry-content"></textarea>
       </div>
       <br>
       <button class="button" type="submit">Save</button>
-    </div>
+    </section>
   </form>
+  </section>
 </section>
 
 

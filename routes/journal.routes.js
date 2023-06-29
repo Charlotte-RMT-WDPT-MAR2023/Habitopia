@@ -8,30 +8,30 @@ router.get("/success", isLoggedIn, (req, res) => res.render("users/success"));
 
 const Checkin = require("../models/Checkin.model");
 
-router.get("/checkin", isLoggedIn, (req, res) => res.render("users/check-in/check-in"));
-
+router.get("/checkin", isLoggedIn, (req, res) => res.render("users/check-in/check-in" ));
 router.post("/check-in", (req, res) => {
   const mood = req.body.scale;
+  const userId = req.user._id; // Extract the logged-in user ID
 
   const checkin = new Checkin({
     mood,
+    user: userId, // Associate the check-in with the logged-in user
   });
 
   const successMessage = "Check-in saved successfully";
-
-  
 
   checkin
     .save()
     .then(() => {
       console.log("Check-in saved successfully");
-      res.render("users/check-in/check-in-success", { successMessage } );
+      res.render("users/check-in/check-in-success", { successMessage });
     })
     .catch((error) => {
       console.log("Error saving check-in:", error);
       res.redirect("/error");
     });
 });
+
 
 
 router.get("/user-profile", (req, res) => {
@@ -75,7 +75,7 @@ router.post("/journal", (req, res) => {
 
 // show last
 
-router.get("/journal" ,  async (req, res) => {
+router.get("/journal" , isLoggedIn,  async (req, res) => {
   try {
     const currentEntryCreatedAt = new Date();
    
@@ -184,5 +184,8 @@ router.post('/journal/:journalId/delete', (req, res, next) => {
     .catch(error => next(error));
 
 });
+
+
+
 
 module.exports = router;

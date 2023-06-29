@@ -1,10 +1,67 @@
+<img class = "background" src="./images/background.jpg" alt="habits">
+
 {{#if userInSession}}
   <h2>Welcome, {{userInSession.username}}!</h2>
-  <p id="motivation"></p>
+  <p class = "container" id="motivation"></p>
 
-  <h2>Last 7 check-ins:</h2>
-
+<section class = "profile-trackers">
+  <section class = "container">
+  <h2>Self check-in</h2>
 <div id="checkin-container"></div>
+</section>
+
+<section class="container">
+  <h2>Pushup</h2>
+  <section class="days">
+    <div class="day" id="today-6"></div>
+    <div class="day" id="today-5"></div>
+    <div class="day" id="today-4"></div>
+    <div class="day" id="today-3"></div>
+    <div class="day" id="today-2"></div>
+    <div class="day" id="today-1"></div>
+    <div class="day" id="today"></div>
+    {{#each entriesPushUps}}
+  <div class="entry">
+    <h3>{{completedAt}}</h3>
+    {{#if isCompletedToday}}
+      <img src="./images/foot.jpg" alt="pushups">
+    {{else}}
+      <div class="blank-box"></div>
+    {{/if}}
+  </div>
+{{/each}}
+  </section>
+  <div id="Pushup-container"></div>
+</section>
+
+<section class="container">
+  <h2>Yoga</h2>
+  <section class="days">
+    <div class="day" id="today-6"></div>
+    <div class="day" id="today-5"></div>
+    <div class="day" id="today-4"></div>
+    <div class="day" id="today-3"></div>
+    <div class="day" id="today-2"></div>
+    <div class="day" id="today-1"></div>
+    <div class="day" id="today"></div>
+  </section>
+  <div id="yoga-container"></div>
+</section>
+
+<section class="container">
+  <h2>Water</h2>
+  <section class="days">
+    <div class="day" id="today-6"></div>
+    <div class="day" id="today-5"></div>
+    <div class="day" id="today-4"></div>
+    <div class="day" id="today-3"></div>
+    <div class="day" id="today-2"></div>
+    <div class="day" id="today-1"></div>
+    <div class="day" id="today"></div>
+  </section>
+  <div id="water-container"></div>
+</section>
+</section>  
 
 
 {{else}}

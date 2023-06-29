@@ -87,7 +87,7 @@ router.get("/entriespushup", isLoggedIn, async (req, res) => {
   }
 });
 
-router.get("/entrieswater", isLoggedIn, async (req, res) => {
+router.get("/entrieswater", async (req, res) => {
   try {
     const entriesWater = await water.find().sort({ createdAt: "desc" });
 
