@@ -5,6 +5,12 @@ body {
   font: 14px "Ubuntu";
 }
 
+h1 {
+  margin: 30px auto;
+  width: 380px;
+  text-align: center;
+}
+
 a {
   color: #3bd081;
   text-decoration: none;
@@ -148,6 +154,20 @@ ul li {
   margin-bottom: 20px;
 }
 
+.journalList {
+  margin: 30px auto;
+  width: 380px;
+}
+
+.journal-list-buttons {
+  display: flex;
+  margin: 30px auto;
+  width: 380px;
+}
+
+.journal-list-buttons .button:last-child {
+  margin-right: 0;
+}
 /* Habit */
 
 .title-image{
@@ -163,3 +183,4 @@ ul li {
 #add-habit-button {
   width: 380px;
 }
+

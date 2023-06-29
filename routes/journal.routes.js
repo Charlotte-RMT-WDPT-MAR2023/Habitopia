@@ -2,13 +2,13 @@ const { isLoggedIn, isLoggedOut } = require("../middleware/route-guard.js");
 
 const router = require("express").Router();
 
-router.get("/success", (req, res) => res.render("users/success"));
+router.get("/success", isLoggedIn, (req, res) => res.render("users/success"));
 
 // Checkin
 
 const Checkin = require("../models/Checkin.model");
 
-router.get("/checkin", isLoggedIn, (req, res) => res.render("users/check-in"));
+router.get("/checkin", isLoggedIn, (req, res) => res.render("users/check-in/check-in"));
 
 router.post("/check-in", (req, res) => {
   const mood = req.body.scale;
@@ -17,17 +17,22 @@ router.post("/check-in", (req, res) => {
     mood,
   });
 
+  const successMessage = "Check-in saved successfully";
+
+  
+
   checkin
     .save()
     .then(() => {
       console.log("Check-in saved successfully");
-      res.redirect("/success");
+      res.render("users/check-in/check-in-success", { successMessage } );
     })
     .catch((error) => {
       console.log("Error saving check-in:", error);
       res.redirect("/error");
     });
 });
+
 
 router.get("/user-profile", (req, res) => {
   Checkin.find()
@@ -53,11 +58,14 @@ router.post("/journal", (req, res) => {
 
   const newJournalEntry = new Journal({ content });
 
+  
+  const successMessage = "Journal entry saved successfully";
+
   newJournalEntry
     .save()
     .then(() => {
-      console.log("Journal entry saved successfully");
-      res.redirect("/success");
+      console.log(successMessage);
+      res.render("users/journal/journal-success" , {successMessage});
     })
     .catch((error) => {
       console.log("Error saving journal entry:", error);
@@ -67,7 +75,7 @@ router.post("/journal", (req, res) => {
 
 // show last
 
-router.get("/journal", async (req, res) => {
+router.get("/journal" ,  async (req, res) => {
   try {
     const currentEntryCreatedAt = new Date();
    
@@ -81,10 +89,11 @@ router.get("/journal", async (req, res) => {
       console.log("No previous entry found.");
       return res.send("No previous entry found.");
     }
+    const today = new Date();
+    const options = {weekday: "short",  year: "numeric", month: "long", day: "numeric" };
 
-
-    return res.render("users/journal", {
-      createdAt: previousEntry.createdAt,
+    return res.render("users/journal/journal", {
+      createdAt: new Date(previousEntry.createdAt).toLocaleDateString("en-US", options),
       content: previousEntry.content,
     });
   } catch (error) {
@@ -96,7 +105,7 @@ router.get("/journal", async (req, res) => {
 });
 
 // list all
-router.get("/journallist", (req, res, next) => {
+router.get("/journallist", isLoggedIn, (req, res, next) => {
   Journal.find()
     .sort({ createdAt: -1 })
     .then((allJournalsFromDB) => {
@@ -112,7 +121,7 @@ router.get("/journallist", (req, res, next) => {
 
 //details
 
-router.get("/journal/:journalId", (req, res) => {
+router.get("/journal/:journalId", isLoggedIn, (req, res) => {
   const { journalId } = req.params;
 
   Journal.findById(journalId)
@@ -129,7 +138,7 @@ router.get("/journal/:journalId", (req, res) => {
 
 //edit
 
-router.get("/journal/:journalId/edit", (req, res, next) => {
+router.get("/journal/:journalId/edit", isLoggedIn, (req, res, next) => {
   const { journalId } = req.params;
 
   Journal.findById(journalId)

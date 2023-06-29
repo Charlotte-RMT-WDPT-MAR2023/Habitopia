@@ -1,6 +1,6 @@
 <h1>Journal Entries</h1>
 
- 
+ <section class = "journalList">
 
 {{#each journals}}
 
@@ -11,19 +11,22 @@
 
 <p>{{content}}</p>
 
-    <a href="/journal/{{_id}}">See details</a> 
+<div class = "journal-list-buttons">
 
-    <a href="/journal/{{_id}}/edit">Edit</a> 
+    <a href="/journal/{{_id}}" class="button" type="button" >See details</a> 
 
-    <form action="/journal/{{_id}}/delete" method="POST">
+    <a href="/journal/{{_id}}/edit" class="button" type="button"  >Edit</a> 
+
+    <form action="/journal/{{_id}}/delete" method="POST" class="button" type="button" >
 
       <button>Delete</button>
 
     </form>
-
+</div>
   </div>
 
 {{/each}}
+</section>
 
 <script src="/js/date.js"></script>
 <script src="/js/journal.js"></script>
