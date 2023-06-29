@@ -1,7 +1,7 @@
 <section class="journal-container">
   <form id="journal-form" action="/journal" method="GET">
     <div class="entry">
-      <div class="entry-date">{{createdAt}}</div>
+      <div class="entry-date" id="created-at">{{createdAt}}</div>
       <div>
         <textarea name="content" class="entry-content" id="entry-content" readonly>{{content}}</textarea>
       </div>
@@ -23,7 +23,6 @@
     </div>
   </form>
 </section>
-
 
 
 
