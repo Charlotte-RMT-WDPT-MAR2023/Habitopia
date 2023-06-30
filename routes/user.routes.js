@@ -8,6 +8,9 @@ const { pushUps, water, yoga } = require("../models/HabitsTracker.model.js");
 router.get("/habits",isLoggedIn,(req, res) => res.render("users/tracker/habits"));
 router.get("/addhabit",isLoggedIn, (req, res) => res.render("users/tracker/add-habit"));
 router.get("/details", isLoggedIn,(req, res) => res.render("users/tracker/details"));
+router.get("/pushups", isLoggedIn, (req, res) => res.render("users/tracker/pushup"));
+router.get("/yoga", isLoggedIn, (req, res) => res.render("users/tracker/yoga"));
+router.get("/water", isLoggedIn, (req, res) => res.render("users/tracker/water"));
 
  
 // Habits Tracker Page GET routes
@@ -27,7 +30,7 @@ router.get("/water", isLoggedIn,(req, res) => {
 
 //POST routes for each habit
 
-router.post("/pushups", (req, res) => {
+router.post("/pushups", isLoggedIn, (req, res) => {
   const { numberOf } = req.body;
 
   const newPushUps = new pushUps({
@@ -47,7 +50,7 @@ router.post("/pushups", (req, res) => {
 });
 
 
-router.post("/water", (req, res) => {
+router.post("/water", isLoggedIn, (req, res) => {
   const { liters } = req.body;
 
   const newLiters = new water ({ 
@@ -67,7 +70,7 @@ router.post("/water", (req, res) => {
 });
 
 
-router.post("/yoga", (req, res) => {
+router.post("/yoga", isLoggedIn, (req, res) => {
   const { minutes } = req.body;
 
   const newMinutes = new yoga({ minutes });
@@ -113,7 +116,7 @@ router.get("/entriespushup", isLoggedIn, async (req, res) => {
 
 //Water entries route 
 
-router.get("/entrieswater", async (req, res) => {
+router.get("/entrieswater", isLoggedIn, async (req, res) => {
   try {
     const entriesWater = await water.find().sort({ createdAt: "desc" });
 
@@ -131,7 +134,7 @@ router.get("/entrieswater", async (req, res) => {
       }
     });
 
-    res.render("users/tracker/waterEntries", { entriesByDate });
+    res.render("users/tracker/waterEntries", isLoggedIn, { entriesByDate });
 
   } catch (error) {
     console.error("Error:", error);

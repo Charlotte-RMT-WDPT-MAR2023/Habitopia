@@ -31,7 +31,7 @@ h6 a.signup-link {
 
 form {
   margin: 30px auto;
-  width: 384px;
+  width: 230px;
   padding: 1px;
 }
 
@@ -56,13 +56,13 @@ form button {
 
 .button {
   margin: 30px auto;
-  width: 380px;
+  width: 100px;
   box-sizing: border-box;
   outline: 0;
   font-size: 14px;
   background: #B9775B;
   border: 1px solid #B9775B;
-  border-radius: 4px;
+  border-radius: 6px;
   color: #fff;
   cursor: pointer;
   display: block;
@@ -72,13 +72,14 @@ form button {
   text-align: center;
   margin-left: auto;
   margin-right: auto;
+ 
 }
 
 
 form button {
   background: #B9775B;
   border: 1px solid #B9775B;
-  border-radius: 4px;
+  border-radius: 6px;
   color: #fff;
   cursor: pointer;
   display: inline-block;
@@ -87,7 +88,7 @@ form button {
   text-decoration: none;
   text-transform: uppercase;
   transition: 0.3s ease background;
-  width: 100%;
+  width: 50%;
 }
 
 form button:hover, .button:hover {
@@ -222,7 +223,7 @@ ul li {
 .journal-list-buttons .button:last-child {
   margin-right: 0;
 }
-/* Habit */
+/* Habit Tracker */
 
 .title-image{
   height: 200px;
@@ -234,8 +235,36 @@ ul li {
   justify-content: space-around;
 }
 
-#add-habit-button {
-  width: 380px;
+
+/* //tracker page buttons */
+.button-link {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.habit-button {
+  width: 110px;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #B9775B;
+  color: #f6f6f6;
+  font-size: 13px;
+  font-weight: normal;
+  text-transform: uppercase;
+  border-radius: 6px;
+  border: 1px solid #B9775B;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.habit-button:hover {
+  background-color: white;
+  color: #B9775B;
+  font-weight: normal;
+}
+
+.habit-button:active {
+  background-color: white;
+  color: #B9775B;
 }
 
 /* homepage */
@@ -270,3 +299,4 @@ h3 {
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 20px;
 }
+
