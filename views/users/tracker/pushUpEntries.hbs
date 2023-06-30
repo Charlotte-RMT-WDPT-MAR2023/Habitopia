@@ -1,9 +1,14 @@
-<h1>Push-Up: Previous Entries</h1>
-<ul>
-  {{#each entriesPushUps}}
-    <li>
-      Date: {{this.createdAt}}
-      Number of Push-Ups: {{this.numberOf}}
-    </li>
+<h1>Push-Ups: Previous Entries</h1>
+<br>
+{{#each entriesByDate}}
+  <h2>{{@key}}</h2> <!-- Display the date -->
+  
+  {{#each this}}
+    <div>
+      <p>Number of Push-Ups: {{content}}</p> 
+      
+    </div>
   {{/each}}
-</ul>
+
+  <hr>
+{{/each}}
