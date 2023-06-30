@@ -1,4 +1,4 @@
-<h1>Water: Previous Entries</h1>
+{{!-- <h1>Water: Previous Entries</h1>
 <ul>
   {{#each entriesWater}}
     <li>
@@ -6,4 +6,20 @@
       Liters: {{this.liters}}
     </li>
   {{/each}} 
-</ul>
+</ul> --}}
+
+
+<h1>Water: Previous Entries</h1>
+<br>
+{{#each entriesByDate}}
+  <h2>{{@key}}</h2> 
+  
+  {{#each this}}
+    <div>
+      <p>Water: {{content}}</p> 
+      
+    </div>
+  {{/each}}
+
+  <hr>
+{{/each}}
