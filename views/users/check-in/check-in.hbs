@@ -1,0 +1,24 @@
+<img class = "background" src="./images/background.jpg" alt="habits">
+
+<br>
+<section class = "container">
+<form action="/check-in" method="POST">
+  <h2>How are you feeling today, {{userInSession.username}}?</h2>
+  <input type="range" id="scale" name="scale" min="1" max="7" step="1" />
+  <section class="emojis">
+    <div>😭</div>     
+    <div>😢</div> 
+    <div>😕</div> 
+    <div>😐</div> 
+    <div>🙂</div> 
+    <div>😃</div> 
+    <div>😍</div> 
+  </section>
+  <br>
+  <br>
+
+  <button type="submit">Save</button>
+</form>
+
+</section>
+

@@ -4,21 +4,23 @@ const router = require("express").Router();
 
 const { pushUps, water, yoga } = require("../models/HabitsTracker.model.js");
 
-router.get("/habits", (req, res) => res.render("users/tracker/habits"));
-router.get("/addhabit", (req, res) => res.render("users/tracker/add-habit"));
-router.get("/details", (req, res) => res.render("users/tracker/details"));
+
+router.get("/habits",isLoggedIn,(req, res) => res.render("users/tracker/habits"));
+router.get("/addhabit",isLoggedIn, (req, res) => res.render("users/tracker/add-habit"));
+router.get("/details", isLoggedIn,(req, res) => res.render("users/tracker/details"));
 
  
 // Habits Tracker Page GET routes
-router.get("/pushups", (req, res) => {
+router.get("/pushups",isLoggedIn, (req, res) => {
+
   res.render("users/tracker/pushup");
 });
 
-router.get("/yoga", (req, res) => {
+router.get("/yoga", isLoggedIn,(req, res) => {
   res.render("users/tracker/yoga");
 })
 
-router.get("/water", (req, res) => {
+router.get("/water", isLoggedIn,(req, res) => {
   res.render("users/tracker/water")
 })
 
@@ -84,7 +86,7 @@ router.post("/yoga", (req, res) => {
 
 //Entries route for each habit
 
-router.get("/entriespushup", async (req, res) => {
+router.get("/entriespushup", isLoggedIn, async (req, res) => {
   try {
     const entriesPushUps = await pushUps.find().sort({ createdAt: "desc" });
 
@@ -110,6 +112,7 @@ router.get("/entriespushup", async (req, res) => {
 
 
 //Water entries route 
+
 router.get("/entrieswater", async (req, res) => {
   try {
     const entriesWater = await water.find().sort({ createdAt: "desc" });
@@ -136,9 +139,8 @@ router.get("/entrieswater", async (req, res) => {
   }
 });
 
-
 //Yoga entries route
-router.get("/entriesyoga", async (req, res) => {
+router.get("/entriesyoga", isLoggedIn, async (req, res) => {
   try {
     const entriesYoga = await yoga.find().sort({ createdAt: "desc" });
 
