@@ -5,12 +5,11 @@ body {
   font: 14px "Ubuntu";
 }
 
-h1, h2, p, div {
+h1, h2, div {
   margin: 30px auto;
   width: 360px;
   text-align: center;
 }
-
 
 
 a {
@@ -44,8 +43,7 @@ form label {
 }
 
 form input,
-form button,
-.button {
+form button {
   box-sizing: border-box;
   font-size: 14px;
   outline: 0;
@@ -54,7 +52,29 @@ form button,
   margin-bottom: 20px;
 }
 
-form button, .button {
+
+.button {
+  margin: 30px auto;
+  width: 380px;
+  box-sizing: border-box;
+  outline: 0;
+  font-size: 14px;
+  background: #B9775B;
+  border: 1px solid #B9775B;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  padding: 8px 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+form button {
   background: #B9775B;
   border: 1px solid #B9775B;
   border-radius: 4px;
@@ -69,9 +89,9 @@ form button, .button {
   width: 100%;
 }
 
-form button:hover {
+form button:hover, .button:hover {
   background: #fff;
-  color: #43a3e6;
+  color: #B9775B;
   transition: 0.3s ease background;
 }
 
