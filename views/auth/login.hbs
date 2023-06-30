@@ -1,8 +1,13 @@
 {{!-- views/auth/login.hbs --}}
+<img class = "background" src="./images/background.jpg" alt="habits">
 
 <div id="form">
 
   <form action="/login" method="POST">
+
+  {{#if errorMessage}}
+      <p class="error">{{errorMessage}}</p>
+    {{/if}}
 
     <label> Email
       <input type="email" name="email" placeholder="rockstar@ironhack.com" />
@@ -16,8 +21,6 @@
 
     
 
-    {{#if errorMessage}}
-      <p class="error">{{errorMessage}}</p>
-    {{/if}}
+    
   </form>
 </div>

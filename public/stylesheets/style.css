@@ -31,7 +31,8 @@ h6 a.signup-link {
 
 form {
   margin: 30px auto;
-  width: 380px;
+  width: 384px;
+  padding: 1px;
 }
 
 form label {
@@ -96,7 +97,7 @@ form button:hover, .button:hover {
 }
 
 .error {
-  background: #f02b63;
+  background: #D9541B;
   box-sizing: border-box;
   color: #fff;
   margin: 20px auto;

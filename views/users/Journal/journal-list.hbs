@@ -11,18 +11,19 @@
 
 <p>{{content}}</p>
 
-<div class = "journal-list-buttons">
-
-    <a href="/journal/{{_id}}" class="small button" type="button" >See details</a> 
-
-    <a href="/journal/{{_id}}/edit" class="small button" type="button"  >Edit</a> 
-
-    <form action="/journal/{{_id}}/delete" method="POST" class="small button" type="button" >
-
-      <button>Delete</button>
-
-    </form>
+<div class="journal-list-buttons">
+  <form action="/journal/{{_id}}"  method="GET" type="button">
+  <button>See Details</button>
+  </form>
+  <form action="/journal/{{_id}}/edit" method="GET" type="button">
+    <button>Edit</button>
+  </form>
+  
+  <form action="/journal/{{_id}}/delete" method="POST" type="button">
+    <button>Delete</button>
+  </form>
 </div>
+
   </div>
   </div>
 
