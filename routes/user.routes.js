@@ -31,8 +31,9 @@ router.get("/water", isLoggedIn,(req, res) => {
 
 router.post("/pushups", isLoggedIn, (req, res) => {
   const { numberOf } = req.body;
-
+  const userId = req.session.currentUser._id;
   const newPushUps = new pushUps({
+    user: userId, 
     numberOf,
     date: new Date() // Set the date to the current date
   });
@@ -51,8 +52,9 @@ router.post("/pushups", isLoggedIn, (req, res) => {
 
 router.post("/water", isLoggedIn, (req, res) => {
   const { liters } = req.body;
-
+  const userId = req.session.currentUser._id;
   const newLiters = new water ({ 
+    user: userId, 
     liters,
     date: new Date()
   });
@@ -71,8 +73,8 @@ router.post("/water", isLoggedIn, (req, res) => {
 
 router.post("/yoga", isLoggedIn, (req, res) => {
   const { minutes } = req.body;
-
-  const newMinutes = new yoga({ minutes });
+  const userId = req.session.currentUser._id;
+  const newMinutes = new yoga({ user: userId, minutes });
 
   newMinutes
     .save()
@@ -88,11 +90,12 @@ router.post("/yoga", isLoggedIn, (req, res) => {
 
 //Entries route for each habit
 
-router.get("/entriespushup", isLoggedIn, async (req, res) => {
+router.get("/entriespushups", isLoggedIn, async (req, res) => {
   try {
-    const entriesPushUps = await pushUps.find().sort({ createdAt: "desc" });
+    const userId = req.session.currentUser._id;
+    const entriesPushUps = await pushUps.find({ userId }).sort({ createdAt: "desc" });
 
-    // Create an object to store entries grouped by date
+   
     const entriesByDate = {};
 
     entriesPushUps.forEach(entry => {
@@ -113,11 +116,13 @@ router.get("/entriespushup", isLoggedIn, async (req, res) => {
 });
 
 
+
 //Water entries route 
 
 router.get("/entrieswater", isLoggedIn, async (req, res) => {
   try {
-    const entriesWater = await water.find().sort({ createdAt: "desc" });
+    const userId = req.session.currentUser._id;
+    const entriesWater = await water.find({ userId }).sort({ createdAt: "desc" });
 
     const entriesByDate = {};
 
@@ -133,7 +138,7 @@ router.get("/entrieswater", isLoggedIn, async (req, res) => {
       }
     });
 
-    res.render("users/tracker/waterEntries", isLoggedIn, { entriesByDate });
+    res.render("users/tracker/waterEntries", { entriesByDate });
 
   } catch (error) {
     console.error("Error:", error);
@@ -141,10 +146,12 @@ router.get("/entrieswater", isLoggedIn, async (req, res) => {
   }
 });
 
+
 //Yoga entries route
 router.get("/entriesyoga", isLoggedIn, async (req, res) => {
   try {
-    const entriesYoga = await yoga.find().sort({ createdAt: "desc" });
+    const userId = req.session.currentUser._id;
+    const entriesYoga = await yoga.find({ userId }).sort({ createdAt: "desc" });
 
     const entriesByDate = {};
 
@@ -169,21 +176,22 @@ router.get("/entriesyoga", isLoggedIn, async (req, res) => {
 // Route for displaying entries for a specific habit
 router.get("/entries/:habit", isLoggedIn, async (req, res) => {
   try {
+    const userId = req.session.currentUser._id;
     const habit = req.params.habit;
 
     let entriesByDate = [];
 
     switch (habit) {
       case "pushups":
-        entriesByDate = await pushUps.find().sort({ createdAt: "desc" });
+        entriesByDate = await pushUps.find({ user: userId }).sort({ createdAt: "desc" });
         res.render("users/tracker/pushUpEntries", { entriesByDate, content: "content" });
         break;
       case "water":
-        entriesByDate = await water.find().sort({ createdAt: "desc" });
+        entriesByDate = await water.find({ user: userId }).sort({ createdAt: "desc" });
         res.render("users/tracker/waterEntries", { entriesByDate, content: "content" });
         break;
       case "yoga":
-        entriesByDate = await yoga.find().sort({ createdAt: "desc" });
+        entriesByDate = await yoga.find({ user: userId }).sort({ createdAt: "desc" });
         res.render("users/tracker/yogaEntries", { entriesByDate, content: "content" });
         break;
       default:
@@ -196,6 +204,7 @@ router.get("/entries/:habit", isLoggedIn, async (req, res) => {
   }
   
 });
+
       
 
 module.exports = router;

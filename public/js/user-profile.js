@@ -1,11 +1,13 @@
 
 const quoteElement = document.getElementById("motivation");
 
+/*
+var apiKey = process.env.API_KEY;
 var category = 'inspirational'
 $.ajax({
     method: 'GET',
     url: 'https://api.api-ninjas.com/v1/quotes?category=' + category,
-    headers: { 'X-Api-Key': 'WDZkDxoZTrzW5rJ+jJr2ZQ==YWOAV5C0qrUMSaXf'},
+    headers: { 'X-Api-Key': apiKey},
     contentType: 'application/json',
     success: function(result) {
         console.log(result);
@@ -17,6 +19,7 @@ $.ajax({
         console.error('Error: ', jqXHR.responseText);
     }
 });
+*/
 
 window.addEventListener("DOMContentLoaded", () => {
   fetch("/user-profile")

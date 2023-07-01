@@ -18,12 +18,11 @@ router.get("/checkin", isLoggedIn, (req, res) =>
 
 router.post("/check-in", isLoggedIn, (req, res) => {
   const mood = req.body.scale;
-  const userId = req.session.currentUser._id; // Access the logged-in user's ID from req.session.currentUser._id
-  console.log(req.session.currentUser._id);
+  const userId = req.session.currentUser._id; 
 
   const checkin = new Checkin({
     mood,
-    user: userId // Assign the logged-in user's ID to the `user` field in the check-in document
+    user: userId 
   });
 
   const successMessage = "Check-in saved successfully";
