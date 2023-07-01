@@ -3,6 +3,9 @@ const { isLoggedIn, isLoggedOut } = require("../middleware/route-guard.js");
 const router = require("express").Router();
 
 router.get("/success", isLoggedIn, (req, res) => res.render("users/success"));
+router.get("/test", (req, res, next) => {res.render("users/test");
+});
+
 
 // Checkin
 
@@ -184,9 +187,10 @@ router.post("/journal/:journalId/delete", (req, res, next) => {
     .catch((error) => next(error));
 });
 
-//Habits
+//Habits for user profile
 
 const { pushUps } = require("../models/HabitsTracker.model.js");
+
 
 router.get("/7days/pushups", (req, res, next) => {
   const sevenDaysAgo = new Date();
@@ -196,17 +200,55 @@ router.get("/7days/pushups", (req, res, next) => {
     .find({ date: { $gte: sevenDaysAgo } })
     .sort({ date: -1 })
     .then((allPushUpsFromDB) => {
-      res.render("users/test", { pushUps: allPushUpsFromDB });
-          })
+      res.json(allPushUpsFromDB); 
+    })
     .catch((error) => {
-      console.log("Error while getting the journals from the DB: ", error);
-      res
-        .status(500)
-        .send("An error occurred while retrieving the journal entries.");
+      console.log("Error while getting the push-ups from the DB: ", error);
+      res.status(500).send("An error occurred while retrieving the push-ups.");
     });
 });
 
+/*water*/
 
+const { water } = require("../models/HabitsTracker.model.js");
+
+
+router.get("/7days/water", (req, res, next) => {
+  const sevenDaysAgo = new Date();
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+  water
+    .find({ date: { $gte: sevenDaysAgo } })
+    .sort({ date: -1 })
+    .then((allWaterFromDB) => {
+      res.json(allWaterFromDB); 
+    })
+    .catch((error) => {
+      console.log("Error while getting the water records from the DB: ", error);
+      res.status(500).send("An error occurred while retrieving the water records.");
+    });
+});
+
+/* yoga */
+
+const { yoga } = require("../models/HabitsTracker.model.js");
+
+
+router.get("/7days/yoga", (req, res, next) => {
+  const sevenDaysAgo = new Date();
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+  yoga
+    .find({ date: { $gte: sevenDaysAgo } })
+    .sort({ date: -1 })
+    .then((allYogaFromDB) => {
+      res.json(allYogaFromDB); 
+    })
+    .catch((error) => {
+      console.log("Error while getting the yoga records from the DB: ", error);
+      res.status(500).send("An error occurred while retrieving the yoga records.");
+    });
+});
 
 
 

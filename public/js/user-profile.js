@@ -44,7 +44,7 @@ window.addEventListener("DOMContentLoaded", () => {
       };
       let sum = 0;
       const emojisContainer = document.createElement("div"); // Create a container for emojis
-      checkins.forEach((checkin) => {
+      checkins.reverse().forEach((checkin) => { // Reverse the checkins array
         sum += checkin.mood;
         const moodElement = document.createElement("span"); // Use <span> instead of <p> for horizontal display
         const mood = checkin.mood;
@@ -64,44 +64,6 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 
-
-window.addEventListener("DOMContentLoaded", () => {
-  fetch("/pushups/last-7-days")
-    .then((response) => response.json())
-    .then((data) => {
-      const pushups = data.pushups;
-
-      // Use the push-ups data in your JavaScript code
-      pushups.forEach((pushup) => {
-        // Access push-up properties
-        const date = pushup.date;
-        const count = pushup.count;
-
-        // Perform actions with the push-up data
-        console.log(`Push-ups on ${date}: ${count}`);
-        // You can add more logic here based on your requirements
-      });
-    })
-    .catch((error) => {
-      console.log("Error fetching push-ups:", error);
-    });
-});
-
-
-
-
-     /* if (pushupsToday) {
-        const image = document.createElement("img");
-        image.src = "./images/foot.jpg";
-        image.alt = "Push-up Image";
-
-        pushupsContainer.appendChild(image);
-      }
-      */
-   
-
- 
-///day of week
 
  
 window.addEventListener("DOMContentLoaded", () => {

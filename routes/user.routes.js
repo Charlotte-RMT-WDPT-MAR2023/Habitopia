@@ -3,7 +3,7 @@ const { isLoggedIn, isLoggedOut } = require("../middleware/route-guard.js");
 const router = require("express").Router();
 
 const { pushUps, water, yoga } = require("../models/HabitsTracker.model.js");
-
+ 
 
 router.get("/habits",isLoggedIn,(req, res) => res.render("users/tracker/habits"));
 router.get("/addhabit",isLoggedIn, (req, res) => res.render("users/tracker/add-habit"));
