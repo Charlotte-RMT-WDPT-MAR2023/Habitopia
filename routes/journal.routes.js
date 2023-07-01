@@ -87,7 +87,7 @@ router.get("/journal", isLoggedIn, async (req, res) => {
 
     if (!previousEntry) {
       console.log("No previous entry found.");
-      return res.send("No previous entry found.");
+      return res.render("users/journal/journal");
     }
     const today = new Date();
     const options = {
