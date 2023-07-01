@@ -90,7 +90,7 @@ router.post("/yoga", isLoggedIn, (req, res) => {
 
 router.get("/entriespushups", isLoggedIn, async (req, res) => {
   try {
-    const entriesPushUps = await pushUps.find().sort({ createdAt: "desc" });
+    const entriesPushUps = await pushUps.find().sort({ date: "desc" });
 
     // Create an object to store entries grouped by date
     const entriesByDate = {};
@@ -117,7 +117,7 @@ router.get("/entriespushups", isLoggedIn, async (req, res) => {
 
 router.get("/entrieswater", isLoggedIn, async (req, res) => {
   try {
-    const entriesWater = await water.find().sort({ createdAt: "desc" });
+    const entriesWater = await water.find().sort({ date: "desc" });
 
     const entriesByDate = {};
 
@@ -145,7 +145,7 @@ router.get("/entrieswater", isLoggedIn, async (req, res) => {
 //Yoga entries route
 router.get("/entriesyoga", isLoggedIn, async (req, res) => {
   try {
-    const entriesYoga = await yoga.find().sort({ createdAt: "desc" });
+    const entriesYoga = await yoga.find().sort({ date: "desc" });
 
     const entriesByDate = {};
 
@@ -177,16 +177,16 @@ router.get("/entries/:habit", isLoggedIn, async (req, res) => {
 
     switch (habit) {
       case "pushups":
-        entriesByDate = await pushUps.find().sort({ createdAt: "desc" });
-        res.render("users/tracker/pushUpEntries", { entriesByDate, content: "content" });
+        entriesByDate = await pushUps.find().sort({ date: "desc" });
+        res.render("users/tracker/pushUpEntries", { entriesByDate, content: "numberOf" });
         break;
       case "water":
-        entriesByDate = await water.find().sort({ createdAt: "desc" });
-        res.render("users/tracker/waterEntries", { entriesByDate, content: "content" });
+        entriesByDate = await water.find().sort({ date: "desc" });
+        res.render("users/tracker/waterEntries", { entriesByDate, content: "liters" });
         break;
       case "yoga":
-        entriesByDate = await yoga.find().sort({ createdAt: "desc" });
-        res.render("users/tracker/yogaEntries", { entriesByDate, content: "content" });
+        entriesByDate = await yoga.find().sort({ date: "desc" });
+        res.render("users/tracker/yogaEntries", { entriesByDate, content: "minutes" });
         break;
       default:
         return res.status(404).send("Insert coin :P");
