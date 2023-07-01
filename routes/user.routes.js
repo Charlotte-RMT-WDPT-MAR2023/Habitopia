@@ -7,7 +7,9 @@ const { pushUps, water, yoga } = require("../models/HabitsTracker.model.js");
 
 router.get("/habits",isLoggedIn,(req, res) => res.render("users/tracker/habits"));
 router.get("/addhabit",isLoggedIn, (req, res) => res.render("users/tracker/add-habit"));
-router.get("/details", isLoggedIn,(req, res) => res.render("users/tracker/details"));
+router.get("/pushups", isLoggedIn, (req, res) => res.render("users/tracker/pushup"));
+router.get("/yoga", isLoggedIn, (req, res) => res.render("users/tracker/yoga"));
+router.get("/water", isLoggedIn, (req, res) => res.render("users/tracker/water"));
 
  
 // Habits Tracker Page GET routes
@@ -27,7 +29,7 @@ router.get("/water", isLoggedIn,(req, res) => {
 
 //POST routes for each habit
 
-router.post("/pushups", (req, res) => {
+router.post("/pushups", isLoggedIn, (req, res) => {
   const { numberOf } = req.body;
 
   const newPushUps = new pushUps({
@@ -38,7 +40,7 @@ router.post("/pushups", (req, res) => {
   newPushUps
     .save()
     .then(() => {
-      res.redirect("/entriespushup");
+      res.redirect("/entriespushups");
     })
     .catch((error) => {
       console.log("Error saving data:", error);
@@ -47,7 +49,7 @@ router.post("/pushups", (req, res) => {
 });
 
 
-router.post("/water", (req, res) => {
+router.post("/water", isLoggedIn, (req, res) => {
   const { liters } = req.body;
 
   const newLiters = new water ({ 
@@ -67,7 +69,7 @@ router.post("/water", (req, res) => {
 });
 
 
-router.post("/yoga", (req, res) => {
+router.post("/yoga", isLoggedIn, (req, res) => {
   const { minutes } = req.body;
 
   const newMinutes = new yoga({ minutes });
@@ -113,7 +115,7 @@ router.get("/entriespushup", isLoggedIn, async (req, res) => {
 
 //Water entries route 
 
-router.get("/entrieswater", async (req, res) => {
+router.get("/entrieswater", isLoggedIn, async (req, res) => {
   try {
     const entriesWater = await water.find().sort({ createdAt: "desc" });
 
@@ -131,7 +133,7 @@ router.get("/entrieswater", async (req, res) => {
       }
     });
 
-    res.render("users/tracker/waterEntries", { entriesByDate });
+    res.render("users/tracker/waterEntries", isLoggedIn, { entriesByDate });
 
   } catch (error) {
     console.error("Error:", error);
@@ -163,5 +165,37 @@ router.get("/entriesyoga", isLoggedIn, async (req, res) => {
   }
 });
 
+
+// Route for displaying entries for a specific habit
+router.get("/entries/:habit", isLoggedIn, async (req, res) => {
+  try {
+    const habit = req.params.habit;
+
+    let entriesByDate = [];
+
+    switch (habit) {
+      case "pushups":
+        entriesByDate = await pushUps.find().sort({ createdAt: "desc" });
+        res.render("users/tracker/pushUpEntries", { entriesByDate, content: "content" });
+        break;
+      case "water":
+        entriesByDate = await water.find().sort({ createdAt: "desc" });
+        res.render("users/tracker/waterEntries", { entriesByDate, content: "content" });
+        break;
+      case "yoga":
+        entriesByDate = await yoga.find().sort({ createdAt: "desc" });
+        res.render("users/tracker/yogaEntries", { entriesByDate, content: "content" });
+        break;
+      default:
+        return res.status(404).send("Insert coin :P");
+    }
+
+  } catch (error) {
+    console.error("Error:", error);
+    return res.status(500).send("An error occurred while retrieving previous entries: " + error.message);
+  }
+  
+});
+      
 
 module.exports = router;

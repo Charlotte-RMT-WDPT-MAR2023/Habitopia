@@ -1,14 +1,14 @@
-<h1>How much water did you drank today?</h1>
+<div id="form">
+  <h2>How much water did you drank today? 🥛</h2>
+</div>
 
-<br>
-<form action="/water" method="POST">
-  <label for="liters">Liters:</label>
-  <input type="text" name="liters" id="liters" required>
-  <button type="submit">Submit</button>
-</form>
-
-
-<a href="/details" class="button-link">
-  <button id = "add-habit-button" class="button">View and edit previous entries</button>
-</a>
-
+<div id="form">
+  <form action="/water" method="POST">
+   <label class="resizeinput" for="liters">Liters:</label>
+    <input type="text" name="liters" id="liters" required>
+     <button type="submit">Submit</button>
+  </form>
+  <a href="/entries/water">
+    <button class="habit-button" type="button">Entries</button>
+  </a>
+</div>
