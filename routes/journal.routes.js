@@ -184,4 +184,30 @@ router.post("/journal/:journalId/delete", (req, res, next) => {
     .catch((error) => next(error));
 });
 
+//Habits
+
+const { pushUps } = require("../models/HabitsTracker.model.js");
+
+router.get("/7days/pushups", (req, res, next) => {
+  const sevenDaysAgo = new Date();
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+  pushUps
+    .find({ date: { $gte: sevenDaysAgo } })
+    .sort({ date: -1 })
+    .then((allPushUpsFromDB) => {
+      res.render("users/test", { pushUps: allPushUpsFromDB });
+          })
+    .catch((error) => {
+      console.log("Error while getting the journals from the DB: ", error);
+      res
+        .status(500)
+        .send("An error occurred while retrieving the journal entries.");
+    });
+});
+
+
+
+
+
 module.exports = router;

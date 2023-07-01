@@ -24,7 +24,6 @@ window.addEventListener("DOMContentLoaded", () => {
     .then((data) => {
       const checkins = data.checkins;
       const checkinContainer = document.getElementById("checkin-container");
-
       const moodEmojis = {
         1: "😭",
         2: "😢",
@@ -34,7 +33,6 @@ window.addEventListener("DOMContentLoaded", () => {
         6: "😃",
         7: "😍",
       };
-
       const motivationalSentences = {
         1: "Last week was tough, but today is a new day. Keep pushing forward!",
         2: "You faced challenges last week, but remember that you're stronger than you think.",
@@ -44,30 +42,20 @@ window.addEventListener("DOMContentLoaded", () => {
         6: "You had a great week! Whatever you're doing, keep going and maintain that positive momentum.",
         7: "Your positive attitude last week has brought you success. Keep up the fantastic work!"
       };
-
       let sum = 0;
       const emojisContainer = document.createElement("div"); // Create a container for emojis
-
       checkins.forEach((checkin) => {
         sum += checkin.mood;
-
         const moodElement = document.createElement("span"); // Use <span> instead of <p> for horizontal display
         const mood = checkin.mood;
         moodElement.textContent = moodEmojis[mood];
         moodElement.classList.add("emoji"); // Add a CSS class for styling
-
-
-
         emojisContainer.appendChild(moodElement); // Append each emoji to the container
       });
-
       checkinContainer.appendChild(emojisContainer); // Append the container to the checkinContainer
-
       const average = sum / checkins.length;
-
       const averageElement = document.createElement("p");
       averageElement.textContent = `${motivationalSentences[Math.round(average)]}`;
-
       checkinContainer.appendChild(averageElement);
     })
     .catch((error) => {
@@ -75,6 +63,44 @@ window.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+
+
+window.addEventListener("DOMContentLoaded", () => {
+  fetch("/pushups/last-7-days")
+    .then((response) => response.json())
+    .then((data) => {
+      const pushups = data.pushups;
+
+      // Use the push-ups data in your JavaScript code
+      pushups.forEach((pushup) => {
+        // Access push-up properties
+        const date = pushup.date;
+        const count = pushup.count;
+
+        // Perform actions with the push-up data
+        console.log(`Push-ups on ${date}: ${count}`);
+        // You can add more logic here based on your requirements
+      });
+    })
+    .catch((error) => {
+      console.log("Error fetching push-ups:", error);
+    });
+});
+
+
+
+
+     /* if (pushupsToday) {
+        const image = document.createElement("img");
+        image.src = "./images/foot.jpg";
+        image.alt = "Push-up Image";
+
+        pushupsContainer.appendChild(image);
+      }
+      */
+   
+
+ 
 ///day of week
 
  

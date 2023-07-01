@@ -1,76 +1,119 @@
-<img class = "background" src="./images/background.jpg" alt="habits">
+<img class="background" src="./images/background.jpg" alt="habits" />
 
 {{#if userInSession}}
   <h2>Welcome, {{userInSession.username}}!</h2>
-  <p class = "container" id="motivation"></p>
+  <p class="container" id="motivation"></p>
 
-<section class = "profile-trackers">
-  <section class = "container">
-  <h2>Self check-in</h2>
-<div id="checkin-container"></div>
-</section>
+  <section class="profile-trackers">
+    <section class="container">
+      <h2>Self check-in</h2>
+      <div id="checkin-container"></div>
+    </section>
 
-<section class="container">
-  <h2>Pushup</h2>
-  <section class="days">
-    <div class="day" id="today-6"></div>
-    <div class="day" id="today-5"></div>
-    <div class="day" id="today-4"></div>
-    <div class="day" id="today-3"></div>
-    <div class="day" id="today-2"></div>
-    <div class="day" id="today-1"></div>
-    <div class="day" id="today"></div>
-    {{#each entriesPushUps}}
-  <div class="entry">
-    <h3>{{completedAt}}</h3>
-    {{#if isCompletedToday}}
-      <img src="./images/foot.jpg" alt="pushups">
-    {{else}}
-      <div class="blank-box"></div>
-    {{/if}}
-  </div>
-{{/each}}
-  </section>
-  <div id="Pushup-container"></div>
-</section>
+    <section class="container">
+      <h2>Pushup</h2>
+      <ul class="days">
+        <li class="day" id="today-6"></li>
+        <li class="day" id="today-5"></li>
+        <li class="day" id="today-4"></li>
+        <li class="day" id="today-3"></li>
+        <li class="day" id="today-2"></li>
+        <li class="day" id="today-1"></li>
+        <li class="day" id="today"></li>
+      </ul>
 
-<section class="container">
-  <h2>Yoga</h2>
-  <section class="days">
-    <div class="day" id="today-6"></div>
-    <div class="day" id="today-5"></div>
-    <div class="day" id="today-4"></div>
-    <div class="day" id="today-3"></div>
-    <div class="day" id="today-2"></div>
-    <div class="day" id="today-1"></div>
-    <div class="day" id="today"></div>
-  </section>
-  <div id="yoga-container"></div>
-</section>
+      <ul class="pushups">
+        <li class="pushup" id="today-6">
+          <img class="thumbnail" src="./images/foot.jpg" alt="pushups" />
+        </li>
+        <li class="pushup" id="today-5"></li>
+        <li class="pushup" id="today-4">
+          <img class="thumbnail" src="./images/foot.jpg" alt="pushups" />
+        </li>
+        <li class="pushup" id="today-3"></li>
+        <li class="pushup" id="today-2">
+          <img class="thumbnail" src="./images/foot.jpg" alt="pushups" />
+        </li>
+        <li class="pushup" id="today-1">
+          <img class="thumbnail" src="./images/foot.jpg" alt="pushups" />
+        </li>
+        <li class="pushup" id="today">
+          <img class="thumbnail" src="./images/foot.jpg" alt="pushups" />
+        </li>
+      </ul>
+    </section>
 
-<section class="container">
-  <h2>Water</h2>
-  <section class="days">
-    <div class="day" id="today-6"></div>
-    <div class="day" id="today-5"></div>
-    <div class="day" id="today-4"></div>
-    <div class="day" id="today-3"></div>
-    <div class="day" id="today-2"></div>
-    <div class="day" id="today-1"></div>
-    <div class="day" id="today"></div>
-  </section>
-  <div id="water-container"></div>
-</section>
-</section>  
+    <section class="container">
+      <h2>Yoga</h2>
+      <ul class="days">
+        <li class="day" id="today-6"></li>
+        <li class="day" id="today-5"></li>
+        <li class="day" id="today-4"></li>
+        <li class="day" id="today-3"></li>
+        <li class="day" id="today-2"></li>
+        <li class="day" id="today-1"></li>
+        <li class="day" id="today"></li>
+      </ul>
+
+      <ul class="yogas">
+        <li class="yoga" id="today-6">
+          <img class="thumbnail" src="./images/yoga 1.jpg" alt="yoga" />
+        </li>
+        <li class="yoga" id="today-5"><img
+            class="thumbnail"
+            src="./images/yoga 1.jpg"
+            alt="yoga"
+          /></li>
+        <li class="yoga" id="today-4">
+          <img class="thumbnail" src="./images/yoga 2.jpg" alt="yoga" />
+        </li>
+        <li class="yoga" id="today-3"></li>
+        <li class="yoga" id="today-2">
+          <img class="thumbnail" src="./images/yoga 3.jpg" alt="yoga" />
+        </li>
+        <li class="yoga" id="today-1">
+        </li>
+        <li class="yoga" id="today">
+          <img class="thumbnail" src="./images/yoga 2.jpg" alt="yoga" />
+        </li>
+      </ul>
+    </section>
+
+    <section class="container">
+      <h2>Water</h2>
+      <ul class="days">
+        <li class="day" id="today-6"></li>
+        <li class="day" id="today-5"></li>
+        <li class="day" id="today-4"></li>
+        <li class="day" id="today-3"></li>
+        <li class="day" id="today-2"></li>
+        <li class="day" id="today-1"></li>
+        <li class="day" id="today"></li>
+      </ul>
+
+      <ul class="waters">
+        <li class="water" id="today-6">
+          <img class="thumbnail" src="./images/water.jpg" alt="water glass">
+        </li>
+        <li class="water" id="today-5"><img class="thumbnail" src="./images/water.jpg" alt="water glass"></li>
+        <li class="water" id="today-4">
+          <img class="thumbnail" src="./images/water.jpg" alt="water glass">
+        </li>
+        <li class="water" id="today-3"><img class="thumbnail" src="./images/water.jpg" alt="water glass"></li>
+        <li class="water" id="today-2">
+          <img class="thumbnail" src="./images/water.jpg" alt="water glass">
+        </li>
+        <li class="water" id="today-1">
+        </li>
+        <li class="water" id="today">
+        </li>
+      </ul>
+    </section>
 
 
 {{else}}
 
-  
-
-  <br><p>Still not logged in user, sorry!</p>
-
- 
+  <br /><p>Still not logged in user, sorry!</p>
 
 {{/if}}
 
