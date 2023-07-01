@@ -100,7 +100,17 @@ router.get("/journal", isLoggedIn, async (req, res) => {
 
     if (!previousEntry) {
       console.log("No previous entry found.");
-      return res.render("users/journal/journal");
+      const today = new Date();
+      const options = {
+        weekday: "short",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      };
+      return res.render("users/journal/journal", {
+        createdAt: today.toLocaleDateString("en-US", options),
+        content: "Nothing to see here",
+      });
     }
 
     const today = new Date();

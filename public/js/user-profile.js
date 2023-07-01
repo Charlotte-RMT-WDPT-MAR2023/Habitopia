@@ -45,26 +45,38 @@ window.addEventListener("DOMContentLoaded", () => {
         6: "You had a great week! Whatever you're doing, keep going and maintain that positive momentum.",
         7: "Your positive attitude last week has brought you success. Keep up the fantastic work!"
       };
-      let sum = 0;
-      const emojisContainer = document.createElement("div"); // Create a container for emojis
-      checkins.reverse().forEach((checkin) => { // Reverse the checkins array
-        sum += checkin.mood;
-        const moodElement = document.createElement("span"); // Use <span> instead of <p> for horizontal display
-        const mood = checkin.mood;
-        moodElement.textContent = moodEmojis[mood];
-        moodElement.classList.add("emoji"); // Add a CSS class for styling
-        emojisContainer.appendChild(moodElement); // Append each emoji to the container
-      });
-      checkinContainer.appendChild(emojisContainer); // Append the container to the checkinContainer
-      const average = sum / checkins.length;
-      const averageElement = document.createElement("p");
-      averageElement.textContent = `${motivationalSentences[Math.round(average)]}`;
-      checkinContainer.appendChild(averageElement);
+
+      if (checkins.length === 0) {
+        const noCheckinsElement = document.createElement("p");
+        noCheckinsElement.textContent = "How are you feeling today?";
+        const checkinLink = document.createElement("a");
+        checkinLink.href = "/checkin"; 
+        checkinLink.textContent = "Check in now";
+        checkinContainer.appendChild(noCheckinsElement);
+        checkinContainer.appendChild(checkinLink);
+      } else {
+        let sum = 0;
+        const emojisContainer = document.createElement("div");
+        checkins.reverse().forEach((checkin) => {
+          sum += checkin.mood;
+          const moodElement = document.createElement("span");
+          const mood = checkin.mood;
+          moodElement.textContent = moodEmojis[mood];
+          moodElement.classList.add("emoji");
+          emojisContainer.appendChild(moodElement);
+        });
+        checkinContainer.appendChild(emojisContainer);
+        const average = sum / checkins.length;
+        const averageElement = document.createElement("p");
+        averageElement.textContent = `${motivationalSentences[Math.round(average)]}`;
+        checkinContainer.appendChild(averageElement);
+      }
     })
     .catch((error) => {
       console.log("Error fetching check-ins:", error);
     });
 });
+
 
 
 
