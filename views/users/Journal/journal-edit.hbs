@@ -1,14 +1,17 @@
-<h1>Edit Journal</h1>
+<img class = "background" src="/images/background.jpg" alt="habits">
 
+<div class="container">
 
 <form action="/journal/{{journal._id}}/edit" method="post">
 <h2>{{journal.createdAt}}</h2>
   <label>
 
-    <input type="text" name="content" class="entry-content" value="{{journal.content}}" />
+    <textarea type="text" name="content" class="entry-content">{{journal.content}}</textarea>
 
   </label>
 
   <button>Save changes</button>
 
 </form>
+
+</div>

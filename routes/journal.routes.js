@@ -11,7 +11,7 @@ const Checkin = require("../models/Checkin.model");
 router.get("/checkin", isLoggedIn, (req, res) =>
   res.render("users/check-in/check-in")
 );
-router.post("/check-in", (req, res) => {
+router.post("/check-in", isLoggedIn, (req, res) => {
   const mood = req.body.scale;
 
   const checkin = new Checkin({
@@ -51,7 +51,7 @@ router.get("/user-profile", (req, res) => {
 
 const Journal = require("../models/Journal.model");
 
-router.post("/journal", (req, res) => {
+router.post("/journal", isLoggedIn, (req, res) => {
   const { content } = req.body;
 
   const newJournalEntry = new Journal({ content });

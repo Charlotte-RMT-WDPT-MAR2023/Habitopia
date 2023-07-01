@@ -1,9 +1,9 @@
-<h1>Journal Entries</h1>
+<img class = "background" src="./images/background.jpg" alt="habits">
 
  <section class = "journalList">
 
 {{#each journals}}
-
+<div class="container">
   <div>
 
     <h3>{{createdAt}}</h3>
@@ -11,18 +11,20 @@
 
 <p>{{content}}</p>
 
-<div class = "journal-list-buttons">
-
-    <a href="/journal/{{_id}}" class="button" type="button" >See details</a> 
-
-    <a href="/journal/{{_id}}/edit" class="button" type="button"  >Edit</a> 
-
-    <form action="/journal/{{_id}}/delete" method="POST" class="button" type="button" >
-
-      <button>Delete</button>
-
-    </form>
+<div class="journal-list-buttons">
+  <form action="/journal/{{_id}}"  method="GET" type="button">
+  <button>See Details</button>
+  </form>
+  <form action="/journal/{{_id}}/edit" method="GET" type="button">
+    <button>Edit</button>
+  </form>
+  
+  <form action="/journal/{{_id}}/delete" method="POST" type="button">
+    <button>Delete</button>
+  </form>
 </div>
+
+  </div>
   </div>
 
 {{/each}}
