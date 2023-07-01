@@ -1,4 +1,4 @@
-const { isLoggedIn, isLoggedOut } = require("../middleware/route-guard.js");
+const { isLoggedIn, isLoggedOut } =require("../middleware/route-guard.js");
 
 const router = require("express").Router();
 
@@ -13,7 +13,7 @@ router.get("/water", isLoggedIn, (req, res) => res.render("users/tracker/water")
 
  
 // Habits Tracker Page GET routes
-router.get("/pushups",isLoggedIn, (req, res) => {
+router.get("/pushups", isLoggedIn, (req, res) => {
 
   res.render("users/tracker/pushup");
 });
@@ -88,7 +88,7 @@ router.post("/yoga", isLoggedIn, (req, res) => {
 
 //Entries route for each habit
 
-router.get("/entriespushup", isLoggedIn, async (req, res) => {
+router.get("/entriespushups", isLoggedIn, async (req, res) => {
   try {
     const entriesPushUps = await pushUps.find().sort({ createdAt: "desc" });
 
@@ -133,13 +133,14 @@ router.get("/entrieswater", isLoggedIn, async (req, res) => {
       }
     });
 
-    res.render("users/tracker/waterEntries", isLoggedIn, { entriesByDate });
+    res.render("users/tracker/waterEntries", { entriesByDate });
 
   } catch (error) {
     console.error("Error:", error);
     return res.status(500).send("An error occurred while retrieving previous entries.");
   }
 });
+
 
 //Yoga entries route
 router.get("/entriesyoga", isLoggedIn, async (req, res) => {
@@ -164,6 +165,7 @@ router.get("/entriesyoga", isLoggedIn, async (req, res) => {
     return res.status(500).send("An error occurred while retrieving previous entries.");
   }
 });
+
 
 
 // Route for displaying entries for a specific habit
@@ -195,7 +197,8 @@ router.get("/entries/:habit", isLoggedIn, async (req, res) => {
     return res.status(500).send("An error occurred while retrieving previous entries: " + error.message);
   }
   
-});
-      
+});      
 
-module.exports = router;
+
+
+module.exports = router

@@ -3,10 +3,11 @@
 // checks if the user is logged in when trying to access a specific page
 
 const isLoggedIn = (req, res, next) => {
+  
   if (!req.session.currentUser) {
     return res.redirect('/');
   }
-  res.locals.isLoggedIn = true; // Set the isLoggedIn flag in res.locals
+  // res.locals.isLoggedIn = true; // Set the isLoggedIn flag in res.locals
   next();
 };
 
