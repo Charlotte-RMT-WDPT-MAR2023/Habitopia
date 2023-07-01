@@ -7,7 +7,6 @@ const { pushUps, water, yoga } = require("../models/HabitsTracker.model.js");
 
 router.get("/habits",isLoggedIn,(req, res) => res.render("users/tracker/habits"));
 router.get("/addhabit",isLoggedIn, (req, res) => res.render("users/tracker/add-habit"));
-router.get("/details", isLoggedIn,(req, res) => res.render("users/tracker/details"));
 router.get("/pushups", isLoggedIn, (req, res) => res.render("users/tracker/pushup"));
 router.get("/yoga", isLoggedIn, (req, res) => res.render("users/tracker/yoga"));
 router.get("/water", isLoggedIn, (req, res) => res.render("users/tracker/water"));
@@ -41,7 +40,7 @@ router.post("/pushups", isLoggedIn, (req, res) => {
   newPushUps
     .save()
     .then(() => {
-      res.redirect("/entriespushup");
+      res.redirect("/entriespushups");
     })
     .catch((error) => {
       console.log("Error saving data:", error);
@@ -166,5 +165,37 @@ router.get("/entriesyoga", isLoggedIn, async (req, res) => {
   }
 });
 
+
+// Route for displaying entries for a specific habit
+router.get("/entries/:habit", isLoggedIn, async (req, res) => {
+  try {
+    const habit = req.params.habit;
+
+    let entriesByDate = [];
+
+    switch (habit) {
+      case "pushups":
+        entriesByDate = await pushUps.find().sort({ createdAt: "desc" });
+        res.render("users/tracker/pushUpEntries", { entriesByDate, content: "content" });
+        break;
+      case "water":
+        entriesByDate = await water.find().sort({ createdAt: "desc" });
+        res.render("users/tracker/waterEntries", { entriesByDate, content: "content" });
+        break;
+      case "yoga":
+        entriesByDate = await yoga.find().sort({ createdAt: "desc" });
+        res.render("users/tracker/yogaEntries", { entriesByDate, content: "content" });
+        break;
+      default:
+        return res.status(404).send("Insert coin :P");
+    }
+
+  } catch (error) {
+    console.error("Error:", error);
+    return res.status(500).send("An error occurred while retrieving previous entries: " + error.message);
+  }
+  
+});
+      
 
 module.exports = router;
