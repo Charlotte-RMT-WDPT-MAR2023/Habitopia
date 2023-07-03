@@ -1,21 +1,3 @@
-{{!-- <h1>Push-Ups: Previous Entries</h1>
-<br>
-{{#each entriesByDate}}
-  <h2>{{@key}}</h2> <!-- Display the date -->
-  
-  {{#if this}}
-    {{#each this}}
-      <div>
-        <p>Number of Push-Ups: {{this.content}}
-      </div>
-    {{/each}}
-  {{else}}
-    <p>No entries for this date.</p>
-  {{/if}}
-
-  <hr>
-{{/each}} --}}
-
 <h1>Push-Ups: Previous Entries</h1>
 <br>
 {{#each entriesByDate}}
@@ -23,10 +5,11 @@
   
   {{#each this}}
     <div>
-      <p>Entry: {{this}}
-      <p>Number of Push-Ups: {{this.content}}</p>
+      <p> Duration: {{ content }} minutes</p> 
     </div>
   {{/each}}
 
   <hr>
 {{/each}}
+
+

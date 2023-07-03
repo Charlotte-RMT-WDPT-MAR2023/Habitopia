@@ -30,10 +30,12 @@ router.get("/water", isLoggedIn,(req, res) => {
 //POST routes for each habit
 
 router.post("/pushups", isLoggedIn, (req, res) => {
+  const userId = req.session.currentUser._id;
   const { numberOf } = req.body;
 
   const newPushUps = new pushUps({
     numberOf,
+    userId,
     date: new Date() // Set the date to the current date
   });
 
@@ -50,10 +52,12 @@ router.post("/pushups", isLoggedIn, (req, res) => {
 
 
 router.post("/water", isLoggedIn, (req, res) => {
+  const userId = req.session.currentUser._id;
   const { liters } = req.body;
 
   const newLiters = new water ({ 
     liters,
+    userId,
     date: new Date()
   });
 
@@ -70,9 +74,14 @@ router.post("/water", isLoggedIn, (req, res) => {
 
 
 router.post("/yoga", isLoggedIn, (req, res) => {
+  const userId = req.session.currentUser._id;
   const { minutes } = req.body;
 
-  const newMinutes = new yoga({ minutes });
+  const newMinutes = new yoga({ 
+    minutes,
+    userId,
+    date: new Date()
+  });
 
   newMinutes
     .save()
@@ -90,7 +99,8 @@ router.post("/yoga", isLoggedIn, (req, res) => {
 
 router.get("/entriespushups", isLoggedIn, async (req, res) => {
   try {
-    const entriesPushUps = await pushUps.find().sort({ date: "desc" });
+    const userId = req.session.currentUser._id;
+    const entriesPushUps = await pushUps.find({userId: userId}).sort({ date: "desc" });
 
     // Create an object to store entries grouped by date
     const entriesByDate = {};
@@ -117,7 +127,8 @@ router.get("/entriespushups", isLoggedIn, async (req, res) => {
 
 router.get("/entrieswater", isLoggedIn, async (req, res) => {
   try {
-    const entriesWater = await water.find().sort({ date: "desc" });
+    const userId = req.session.currentUser._id;
+    const entriesWater = await water.find({userId: userId}).sort({ date: "desc" });
 
     const entriesByDate = {};
 
@@ -145,7 +156,8 @@ router.get("/entrieswater", isLoggedIn, async (req, res) => {
 //Yoga entries route
 router.get("/entriesyoga", isLoggedIn, async (req, res) => {
   try {
-    const entriesYoga = await yoga.find().sort({ date: "desc" });
+    const userId = req.session.currentUser._id;
+    const entriesYoga = await yoga.find({userId: userId}).sort({ date: "desc" });
 
     const entriesByDate = {};
 
@@ -171,21 +183,22 @@ router.get("/entriesyoga", isLoggedIn, async (req, res) => {
 // Route for displaying entries for a specific habit
 router.get("/entries/:habit", isLoggedIn, async (req, res) => {
   try {
+    const userId = req.session.currentUser._id;
     const habit = req.params.habit;
-
     let entriesByDate = [];
 
     switch (habit) {
       case "pushups":
-        entriesByDate = await pushUps.find().sort({ date: "desc" });
+        entriesByDate = await pushUps.find({userId: userId}).sort({ date: "desc" });
+        console.log({userId:userId})
         res.render("users/tracker/pushUpEntries", { entriesByDate, content: "numberOf" });
         break;
       case "water":
-        entriesByDate = await water.find().sort({ date: "desc" });
+        entriesByDate = await water.find({userId: userId}).sort({ date: "desc" });
         res.render("users/tracker/waterEntries", { entriesByDate, content: "liters" });
         break;
       case "yoga":
-        entriesByDate = await yoga.find().sort({ date: "desc" });
+        entriesByDate = await yoga.find({userId: userId}).sort({ date: "desc" });
         res.render("users/tracker/yogaEntries", { entriesByDate, content: "minutes" });
         break;
       default:
@@ -198,7 +211,6 @@ router.get("/entries/:habit", isLoggedIn, async (req, res) => {
   }
   
 });      
-
 
 
 module.exports = router
