@@ -7,7 +7,7 @@ const isLoggedIn = (req, res, next) => {
   if (!req.session.currentUser) {
     return res.redirect('/');
   }
-  // res.locals.isLoggedIn = true; // Set the isLoggedIn flag in res.locals
+  res.locals.isLoggedIn = true; 
   next();
 };
 

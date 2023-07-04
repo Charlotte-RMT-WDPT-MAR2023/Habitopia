@@ -13,7 +13,7 @@ const pushUpsHabitSchema = new mongoose.Schema({
     type: Date,
     required: true,
     default: Date.now,
-  }
+  },
 });
 
 const waterHabitSchema = new mongoose.Schema({

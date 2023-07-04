@@ -278,6 +278,17 @@ ul li {
   padding: 1px;
 }
 
+.entry-buttons {
+  display: none;
+}
+
+.entry:hover .entry-buttons {
+  display: block;
+}
+
+
+
+
 /* homepage */
 
 .background {

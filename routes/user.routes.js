@@ -6,7 +6,6 @@ const { pushUps, water, yoga } = require("../models/HabitsTracker.model.js");
 
 
 router.get("/habits",isLoggedIn,(req, res) => res.render("users/tracker/habits"));
-router.get("/addhabit",isLoggedIn, (req, res) => res.render("users/tracker/add-habit"));
 router.get("/pushups", isLoggedIn, (req, res) => res.render("users/tracker/pushup"));
 router.get("/yoga", isLoggedIn, (req, res) => res.render("users/tracker/yoga"));
 router.get("/water", isLoggedIn, (req, res) => res.render("users/tracker/water"));
@@ -178,6 +177,7 @@ router.get("/entriesyoga", isLoggedIn, async (req, res) => {
   }
 });
 
+         
 
 
 // Route for displaying entries for a specific habit
@@ -189,8 +189,8 @@ router.get("/entries/:habit", isLoggedIn, async (req, res) => {
 
     switch (habit) {
       case "pushups":
-        entriesByDate = await pushUps.find({userId: userId}).sort({ date: "desc" });
-        console.log({userId:userId})
+        entriesByDate = await pushUps.find({ userId: userId }).sort({ date: "desc" });
+        const showButtons = true; 
         res.render("users/tracker/pushUpEntries", { entriesByDate, content: "numberOf" });
         break;
       case "water":
@@ -211,6 +211,40 @@ router.get("/entries/:habit", isLoggedIn, async (req, res) => {
   }
   
 });      
+
+//Delete an user entry 
+
+// router.post("/entries/:habit/delete", isLoggedIn, async (req, res) => {
+//   try {
+//     const userId = req.session.currentUser._id;
+//     const entryId = req.body.entryId;
+
+//    
+//     const result = await pushUps.deleteOne({ _id: entryId, userId: userId });
+
+//     if (result.deletedCount === 1) {
+//      
+//       res.redirect("/entries"); 
+//     } else {
+//      
+//       res.status(404).send("Entry not found or not authorized to delete.");
+//     }
+//   } catch (error) {
+//     console.error("Error:", error);
+//     res.status(500).send("An error occurred while deleting the entry: " + error.message);
+//   }
+// });
+
+router.post("/entries/:habit/delete", (req, res, next) => {
+  const { pushUpsId } = req.params.entryId;
+
+  pushUps.findByIdAndDelete(pushUpsId)
+
+    .then(() => res.redirect("/entries"))
+
+    .catch((error) => next(error));
+});
+
 
 
 module.exports = router
