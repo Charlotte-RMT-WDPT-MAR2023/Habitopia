@@ -1,12 +1,11 @@
 const quoteElement = document.getElementById("motivation");
 
-const apiKey = process.env.API_KEY;
 
 const category = 'inspirational'
 $.ajax({
     method: 'GET',
     url: 'https://api.api-ninjas.com/v1/quotes?category=' + category,
-    headers: { 'X-Api-Key': apiKey},
+    headers: { 'X-Api-Key': 'WDZkDxoZTrzW5rJ+jJr2ZQ==YWOAV5C0qrUMSaXf'},
     contentType: 'application/json',
     success: function(result) {
         console.log(result);
