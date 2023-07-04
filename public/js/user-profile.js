@@ -1,9 +1,8 @@
-
 const quoteElement = document.getElementById("motivation");
 
-/*
-var apiKey = process.env.API_KEY;
-var category = 'inspirational'
+const apiKey = process.env.API_KEY;
+
+const category = 'inspirational'
 $.ajax({
     method: 'GET',
     url: 'https://api.api-ninjas.com/v1/quotes?category=' + category,
@@ -19,7 +18,7 @@ $.ajax({
         console.error('Error: ', jqXHR.responseText);
     }
 });
-*/
+
 
 window.addEventListener("DOMContentLoaded", () => {
   fetch("/user-profile")
