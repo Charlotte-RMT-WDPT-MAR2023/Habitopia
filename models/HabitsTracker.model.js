@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+
 const pushUpsHabitSchema = new mongoose.Schema({
   numberOf: {
     type: Number,
@@ -13,6 +14,10 @@ const pushUpsHabitSchema = new mongoose.Schema({
     type: Date,
     required: true,
     default: Date.now,
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
   },
 });
 
@@ -29,7 +34,11 @@ const waterHabitSchema = new mongoose.Schema({
     type: Date,
     required: true,
     default: Date.now,
-  }
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 const yogaHabitSchema = new mongoose.Schema({
@@ -45,7 +54,11 @@ const yogaHabitSchema = new mongoose.Schema({
     type: Date,
     required: true,
     default: Date.now,
-  }
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 const pushUps = mongoose.model("Push-Ups", pushUpsHabitSchema);

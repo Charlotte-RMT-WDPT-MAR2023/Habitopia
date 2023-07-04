@@ -7,9 +7,12 @@ const isLoggedIn = (req, res, next) => {
   if (!req.session.currentUser) {
     return res.redirect('/');
   }
-  res.locals.isLoggedIn = true; 
+  req.user = req.session.currentUser;
+  res.locals.isLoggedIn = true; // Set the isLoggedIn flag in res.locals
+
   next();
 };
+
 
 // if an already logged in user tries to access the login page it
 // redirects the user to the home page
@@ -19,6 +22,8 @@ const isLoggedOut = (req, res, next) => {
   }
   next();
 };
+
+
 
 module.exports = {
   isLoggedIn,
