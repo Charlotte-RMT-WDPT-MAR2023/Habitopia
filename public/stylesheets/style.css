@@ -261,7 +261,6 @@ ul li {
 
 .habits{
   display:flex;
-  margin: 100px;
   justify-content: space-around;
 }
 
@@ -301,7 +300,6 @@ ul li {
   height: 100%;
   z-index: -1;
   opacity: 0.3;
-  background-repeat: repeat-y;
 }
 
 
@@ -315,6 +313,9 @@ h3 {
   width: 380px;
   text-align: center;
   font-size: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .days{

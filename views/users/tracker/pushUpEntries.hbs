@@ -1,9 +1,15 @@
+<img class = "background" src="./images/background.jpg" alt="habits">
+
+
 <a href="/pushups">Return</a>
 <br>
+
+
 
 <h1>Push-Ups: Previous Entries</h1>
 
 {{#each entriesByDate}}
+<div class="container">
   <div class="entry" data-entry-id="{{_Id}}">
     <h2>{{@key}}</h2> 
     {{#each this}}
@@ -21,6 +27,8 @@
       </div>
     {{/if}}
   </div>
+  </div>
+  <hr>
 {{/each}}
 
 
