@@ -283,7 +283,7 @@ router.get("/7days/water", (req, res, next) => {
       res.status(500).send("An error occurred while retrieving the water records.");
     });
 });
-
+ 
 /* yoga */
 
 const { yoga } = require("../models/HabitsTracker.model.js");

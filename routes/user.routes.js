@@ -24,7 +24,7 @@ router.get("/yoga", isLoggedIn,(req, res) => {
 router.get("/water", isLoggedIn,(req, res) => {
   res.render("users/tracker/water")
 })
-
+ 
 
 //POST routes for each habit
 
@@ -34,7 +34,7 @@ router.post("/pushups", isLoggedIn, (req, res) => {
 
   const newPushUps = new pushUps({
     numberOf,
-    userId,
+    user: userId,
     date: new Date() // Set the date to the current date
   });
 
@@ -56,7 +56,7 @@ router.post("/water", isLoggedIn, (req, res) => {
 
   const newLiters = new water ({ 
     liters,
-    userId,
+    user: userId,
     date: new Date()
   });
 
@@ -78,7 +78,7 @@ router.post("/yoga", isLoggedIn, (req, res) => {
 
   const newMinutes = new yoga({ 
     minutes,
-    userId,
+    user: userId,
     date: new Date()
   });
 
@@ -99,7 +99,7 @@ router.post("/yoga", isLoggedIn, (req, res) => {
 router.get("/entriespushups", isLoggedIn, async (req, res) => {
   try {
     const userId = req.session.currentUser._id;
-    const entriesPushUps = await pushUps.find({userId: userId}).sort({ date: "desc" });
+    const entriesPushUps = await pushUps.find({user: userId}).sort({ date: "desc" });
 
     // Create an object to store entries grouped by date
     const entriesByDate = {};
@@ -127,7 +127,7 @@ router.get("/entriespushups", isLoggedIn, async (req, res) => {
 router.get("/entrieswater", isLoggedIn, async (req, res) => {
   try {
     const userId = req.session.currentUser._id;
-    const entriesWater = await water.find({userId: userId}).sort({ date: "desc" });
+    const entriesWater = await water.find({user: userId}).sort({ date: "desc" });
 
     const entriesByDate = {};
 
@@ -156,7 +156,7 @@ router.get("/entrieswater", isLoggedIn, async (req, res) => {
 router.get("/entriesyoga", isLoggedIn, async (req, res) => {
   try {
     const userId = req.session.currentUser._id;
-    const entriesYoga = await yoga.find({userId: userId}).sort({ date: "desc" });
+    const entriesYoga = await yoga.find({user: userId}).sort({ date: "desc" });
 
     const entriesByDate = {};
 
@@ -189,16 +189,16 @@ router.get("/entries/:habit", isLoggedIn, async (req, res) => {
 
     switch (habit) {
       case "pushups":
-        entriesByDate = await pushUps.find({ userId: userId }).sort({ date: "desc" });
+        entriesByDate = await pushUps.find({ user: userId }).sort({ date: "desc" });
         const showButtons = true; 
         res.render("users/tracker/pushUpEntries", { entriesByDate, content: "numberOf" });
         break;
       case "water":
-        entriesByDate = await water.find({userId: userId}).sort({ date: "desc" });
+        entriesByDate = await water.find({user: userId}).sort({ date: "desc" });
         res.render("users/tracker/waterEntries", { entriesByDate, content: "liters" });
         break;
       case "yoga":
-        entriesByDate = await yoga.find({userId: userId}).sort({ date: "desc" });
+        entriesByDate = await yoga.find({user: userId}).sort({ date: "desc" });
         res.render("users/tracker/yogaEntries", { entriesByDate, content: "minutes" });
         break;
       default:
@@ -220,7 +220,7 @@ router.get("/entries/:habit", isLoggedIn, async (req, res) => {
 //     const entryId = req.body.entryId;
 
 //    
-//     const result = await pushUps.deleteOne({ _id: entryId, userId: userId });
+//     const result = await pushUps.deleteOne({ _id: entryId, user: userId });
 
 //     if (result.deletedCount === 1) {
 //      
