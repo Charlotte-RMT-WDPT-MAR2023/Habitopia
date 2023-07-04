@@ -269,6 +269,28 @@ ul li {
   width: 380px;
 }
 
+.form2 {
+  position: relative;
+  z-index: 1;
+}
+
+.form3 {
+  margin: 30px auto;
+  width: 230px;
+  padding: 1px;
+}
+
+.entry-buttons {
+  display: none;
+}
+
+.entry:hover .entry-buttons {
+  display: block;
+}
+
+
+
+
 /* homepage */
 
 .background {

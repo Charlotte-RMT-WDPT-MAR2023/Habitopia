@@ -1,15 +1,28 @@
-<h1>Push-Ups: Previous Entries</h1>
+<a href="/pushups">Return</a>
 <br>
+
+<h1>Push-Ups: Previous Entries</h1>
+
 {{#each entriesByDate}}
-  <h2>{{@key}}</h2> <!-- Display the date -->
-  
-  {{#each this}}
-    <div>
-      <p>Number of Push-Ups: {{numberOf}} </p> 
+  <div class="entry" data-entry-id="{{_Id}}">
+    <h2>{{@key}}</h2> 
+    {{#each this}}
       
-    </div>
-  {{/each}}
+        <p>Number of push-ups: {{ content }}</p> 
+     
+    {{/each}}
+    {{#if showButtons}}
+      <div class="entry-buttons">
+        <a href="/entries/edit/{{this._id}}" class="edit-button">Edit</a>
+        <form action="/entries/delete/{{this._id}}" method="POST">
+          <input type="hidden" name="entryId" value="{{this._id}}">
+          <button type="submit" class="delete-button">Delete</button>
+        </form>
+      </div>
+    {{/if}}
+  </div>
+{{/each}}
 
-  <hr>
-{{/each}} 
 
+
+<script src="/js/entry-interaction.js"></script>
