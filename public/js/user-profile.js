@@ -1,11 +1,13 @@
 
 const quoteElement = document.getElementById("motivation");
 
+/*
+var apiKey = process.env.API_KEY;
 var category = 'inspirational'
 $.ajax({
     method: 'GET',
     url: 'https://api.api-ninjas.com/v1/quotes?category=' + category,
-    headers: { 'X-Api-Key': 'WDZkDxoZTrzW5rJ+jJr2ZQ==YWOAV5C0qrUMSaXf'},
+    headers: { 'X-Api-Key': apiKey},
     contentType: 'application/json',
     success: function(result) {
         console.log(result);
@@ -17,6 +19,7 @@ $.ajax({
         console.error('Error: ', jqXHR.responseText);
     }
 });
+*/
 
 window.addEventListener("DOMContentLoaded", () => {
   fetch("/user-profile")
@@ -24,7 +27,6 @@ window.addEventListener("DOMContentLoaded", () => {
     .then((data) => {
       const checkins = data.checkins;
       const checkinContainer = document.getElementById("checkin-container");
-
       const moodEmojis = {
         1: "😭",
         2: "😢",
@@ -34,7 +36,6 @@ window.addEventListener("DOMContentLoaded", () => {
         6: "😃",
         7: "😍",
       };
-
       const motivationalSentences = {
         1: "Last week was tough, but today is a new day. Keep pushing forward!",
         2: "You faced challenges last week, but remember that you're stronger than you think.",
@@ -45,37 +46,39 @@ window.addEventListener("DOMContentLoaded", () => {
         7: "Your positive attitude last week has brought you success. Keep up the fantastic work!"
       };
 
-      let sum = 0;
-      const emojisContainer = document.createElement("div"); // Create a container for emojis
-
-      checkins.forEach((checkin) => {
-        sum += checkin.mood;
-
-        const moodElement = document.createElement("span"); // Use <span> instead of <p> for horizontal display
-        const mood = checkin.mood;
-        moodElement.textContent = moodEmojis[mood];
-        moodElement.classList.add("emoji"); // Add a CSS class for styling
-
-
-
-        emojisContainer.appendChild(moodElement); // Append each emoji to the container
-      });
-
-      checkinContainer.appendChild(emojisContainer); // Append the container to the checkinContainer
-
-      const average = sum / checkins.length;
-
-      const averageElement = document.createElement("p");
-      averageElement.textContent = `${motivationalSentences[Math.round(average)]}`;
-
-      checkinContainer.appendChild(averageElement);
+      if (checkins.length === 0) {
+        const noCheckinsElement = document.createElement("p");
+        noCheckinsElement.textContent = "How are you feeling today?";
+        const checkinLink = document.createElement("a");
+        checkinLink.href = "/checkin"; 
+        checkinLink.textContent = "Check in now";
+        checkinContainer.appendChild(noCheckinsElement);
+        checkinContainer.appendChild(checkinLink);
+      } else {
+        let sum = 0;
+        const emojisContainer = document.createElement("div");
+        checkins.reverse().forEach((checkin) => {
+          sum += checkin.mood;
+          const moodElement = document.createElement("span");
+          const mood = checkin.mood;
+          moodElement.textContent = moodEmojis[mood];
+          moodElement.classList.add("emoji");
+          emojisContainer.appendChild(moodElement);
+        });
+        checkinContainer.appendChild(emojisContainer);
+        const average = sum / checkins.length;
+        const averageElement = document.createElement("p");
+        averageElement.textContent = `${motivationalSentences[Math.round(average)]}`;
+        checkinContainer.appendChild(averageElement);
+      }
     })
     .catch((error) => {
       console.log("Error fetching check-ins:", error);
     });
 });
 
-///day of week
+
+
 
  
 window.addEventListener("DOMContentLoaded", () => {
