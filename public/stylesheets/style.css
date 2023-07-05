@@ -289,8 +289,6 @@ ul li {
 }
 
 
-
-
 /* homepage */
 
 .background {
@@ -325,6 +323,7 @@ h3 {
 }
 
 
+
 /* tracker page buttons */
 .button-link {
   display: inline-block;
@@ -345,6 +344,33 @@ h3 {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+.tracker-list-buttons {
+  display: flex; /* Add flex display to create a flex container */
+  justify-content: center; /* Align buttons to the left side */
+}
+
+.side-by-side {
+  display: inline-block;
+  width: 80px;
+  /* padding: 10px 20px; */
+  background-color: white;
+  color: #B9775B;
+  font-size: 11px;
+  font-weight: normal;
+  text-transform: uppercase;
+  border-radius: 2px;
+  border: 1px solid #B9775B;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin-top: -45px;
+ 
+}
+ 
+.return-link {
+  position: fixed;
+  bottom: 40px; 
+  left: 50px; 
+}
+
 .habit-button:hover {
   background-color: white;
   color: #B9775B;
@@ -355,3 +381,16 @@ h3 {
   background-color: white;
   color: #B9775B;
 }
+
+.entry-buttons {
+  display: none;
+}
+
+.entry:hover .entry-buttons {
+  display: block;
+}
+
+#adjust-entries-btn{
+  margin-top: -20;
+}
+

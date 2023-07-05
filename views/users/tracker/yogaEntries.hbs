@@ -1,4 +1,6 @@
-<a href="/yoga">Return</a>
+
+<br>
+<a href="/yoga" class="return-link">Return</a>
 <br>
 
 <h1>Yoga: Previous Entries</h1>
@@ -9,6 +11,16 @@
   {{#each this}}
     <div>
       <p> Duration: {{content}} minutes</p> 
+    </div>
+
+    <div class="tracker-list-buttons">
+      <form action="/entriesyoga/{{_id}}/edit" method="GET" type="button">
+        <button class="edit-side-by-side">Edit</button>
+      </form>
+  
+      <form action="/entriesyoga/{{_id}}/delete" method="POST" type="button">
+        <button class="delete-side-by-side">Delete</button>
+      </form>
     </div>
   {{/each}}
 
