@@ -1,5 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
 
+.logo-image{
+  width: 30%;
+}
 body {
   padding: 50px;
   font: 14px "Ubuntu";
@@ -344,6 +347,48 @@ h3 {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+.habit-button-salmon {
+  width: 110px;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #c98665;
+  color: #f6f6f6;
+  font-size: 13px;
+  font-weight: normal;
+  text-transform: uppercase;
+  border-radius: 6px;
+  border: 1px solid #B9775B;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.habit-button-blue {
+  width: 110px;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #2eabdd;
+  color: #f6f6f6;
+  font-size: 13px;
+  font-weight: normal;
+  text-transform: uppercase;
+  border-radius: 6px;
+  border: 1px solid #007ca5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.habit-button-purple {
+  width: 110px;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #9290d2;
+  color: #f6f6f6;
+  font-size: 13px;
+  font-weight: normal;
+  text-transform: uppercase;
+  border-radius: 6px;
+  border: 1px solid #32327c;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 .tracker-list-buttons {
   display: flex; /* Add flex display to create a flex container */
   justify-content: center; /* Align buttons to the left side */
@@ -362,7 +407,6 @@ h3 {
   border: 1px solid #B9775B;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   margin-top: -45px;
- 
 }
  
 .return-link {
