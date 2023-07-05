@@ -51,7 +51,6 @@ const yogaHabitSchema = new mongoose.Schema({
     required: true,
     default: Date.now,
   },
-  }
 });
 
 const pushUps = mongoose.model("Push-Ups", pushUpsHabitSchema);
