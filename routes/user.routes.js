@@ -244,8 +244,5 @@ router.post("/entries/:habit/delete", (req, res, next) => {
 
     .catch((error) => next(error));
 });
-
-
-
-
 module.exports = router
+

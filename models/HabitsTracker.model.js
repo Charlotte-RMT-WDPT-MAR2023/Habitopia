@@ -14,7 +14,11 @@ const pushUpsHabitSchema = new mongoose.Schema({
     type: Date,
     required: true,
     default: Date.now,
-  }
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 const waterHabitSchema = new mongoose.Schema({
@@ -46,6 +50,7 @@ const yogaHabitSchema = new mongoose.Schema({
     type: Date,
     required: true,
     default: Date.now,
+  },
   }
 });
 
