@@ -3,6 +3,7 @@
 require("dotenv/config");
 require('dotenv').config();
 
+
 // ℹ️ Connects to the database
 require("./db");
 
@@ -17,6 +18,7 @@ const app = express();
 
 
 require('./config/session.config')(app);
+
 
 // ℹ️ This function is getting exported from the config folder. It runs most middlewares
 require("./config")(app);

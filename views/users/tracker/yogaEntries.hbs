@@ -1,6 +1,8 @@
 
+<img class = "background" src="./images/background.jpg" alt="habits">
 <br>
 <a href="/yoga" class="return-link">Return</a>
+
 <br>
 
 <h1>Yoga: Previous Entries</h1>
@@ -8,6 +10,7 @@
 
 
 {{#each entriesByDate}}
+<div class="container">
   <h2>{{@key}}</h2> 
   
   {{#each this}}
@@ -27,6 +30,7 @@
 
 
     </div>
+
   {{/each}}
 
 

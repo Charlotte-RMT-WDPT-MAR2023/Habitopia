@@ -1,10 +1,15 @@
+
+<img class = "background" src="./images/background.jpg" alt="habits">
+
 <a href="/water" class="return-link">Return</a>
+
 <br>
 
 <h1>Water: Previous Entries</h1>
 <br>
 
 {{#each entriesByDate}}
+<div class="container">
   <h2>{{@key}}</h2> 
   
   {{#each this}}
@@ -22,6 +27,7 @@
 </form>
 
     </div>
+    
   {{/each}}
 
 

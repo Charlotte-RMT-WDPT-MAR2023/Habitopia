@@ -118,14 +118,10 @@ occurences:
 
 ### Project
 
-[Repository Link](www.your-github-url-here.com)
+[Repository Link](https://github.com/Charlotte-RMT-WDPT-MAR2023/Habitopia.git)
 
-[Deploy Link](www.your-deploy-url-here.com)
-
-### Trello
-
-[Link to your trello board](www.your-trello-url-here.com)
+[Deploy Link](https://habitopia.cyclic.app/)
 
 ### Slides
 
-[Slides Link](www.your-slides-url-here.com)
+[Presentation](https://docs.google.com/presentation/d/1qF9t5PtgHYEiPtEXVEPu3BKEcl5V7OGERRasYtuKTw0/edit?usp=sharing)

@@ -24,7 +24,7 @@ router.get("/yoga", isLoggedIn,(req, res) => {
 router.get("/water", isLoggedIn,(req, res) => {
   res.render("users/tracker/water")
 })
-
+ 
 
 //POST routes for each habit
 router.post("/pushups", isLoggedIn, (req, res) => {
@@ -33,8 +33,8 @@ router.post("/pushups", isLoggedIn, (req, res) => {
 
   const newPushUps = new pushUps({
     numberOf,
-    userId,
-    date: new Date()
+    user: userId,
+    date: new Date() // Set the date to the current date
   });
 
   newPushUps
@@ -55,7 +55,7 @@ router.post("/water", isLoggedIn, (req, res) => {
 
   const newLiters = new water ({ 
     liters,
-    userId,
+    user: userId,
     date: new Date()
   });
 
@@ -77,7 +77,7 @@ router.post("/yoga", isLoggedIn, (req, res) => {
 
   const newMinutes = new yoga({ 
     minutes,
-    userId,
+    user: userId,
     date: new Date()
   });
 
@@ -98,7 +98,9 @@ router.post("/yoga", isLoggedIn, (req, res) => {
 router.get("/entriespushups", isLoggedIn, async (req, res) => {
   try {
     const userId = req.session.currentUser._id;
-    const entriesPushUps = await pushUps.find({ userId: userId }).sort({ date: "desc" });
+
+    const entriesPushUps = await pushUps.find({user: userId}).sort({ date: "desc" });
+
 
     // Create an object to store entries grouped by date
     const entriesByDate = {};
@@ -123,7 +125,7 @@ router.get("/entriespushups", isLoggedIn, async (req, res) => {
 router.get("/entrieswater", isLoggedIn, async (req, res) => {
   try {
     const userId = req.session.currentUser._id;
-    const entriesWater = await water.find({userId: userId}).sort({ date: "desc" });
+    const entriesWater = await water.find({user: userId}).sort({ date: "desc" });
 
     const entriesByDate = {};
 
@@ -153,7 +155,7 @@ router.get("/entrieswater", isLoggedIn, async (req, res) => {
 router.get("/entriesyoga", isLoggedIn, async (req, res) => {
   try {
     const userId = req.session.currentUser._id;
-    const entriesYoga = await yoga.find({userId: userId}).sort({ date: "desc" });
+    const entriesYoga = await yoga.find({user: userId}).sort({ date: "desc" });
 
     const entriesByDate = {};
 
