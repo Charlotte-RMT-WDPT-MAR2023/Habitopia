@@ -1,9 +1,9 @@
+const { model } = require("mongoose");
 const { isLoggedIn, isLoggedOut } =require("../middleware/route-guard.js");
 
 const router = require("express").Router();
 
 const { pushUps, water, yoga } = require("../models/HabitsTracker.model.js");
-
 
 router.get("/habits",isLoggedIn,(req, res) => res.render("users/tracker/habits"));
 router.get("/pushups", isLoggedIn, (req, res) => res.render("users/tracker/pushup"));
@@ -27,7 +27,6 @@ router.get("/water", isLoggedIn,(req, res) => {
  
 
 //POST routes for each habit
-
 router.post("/pushups", isLoggedIn, (req, res) => {
   const userId = req.session.currentUser._id;
   const { numberOf } = req.body;
@@ -113,7 +112,7 @@ router.get("/entriespushups", isLoggedIn, async (req, res) => {
         entriesByDate[date] = [];
       }
 
-      entriesByDate[date].push({ content: entry.numberOf });
+      entriesByDate[date].push({ content: entry.numberOf, entryId: entry._id });
     });
 
     res.render("users/tracker/pushUpEntries", { entriesByDate });
@@ -122,9 +121,6 @@ router.get("/entriespushups", isLoggedIn, async (req, res) => {
   }
 });
 
-
-
-//Water entries route 
 
 router.get("/entrieswater", isLoggedIn, async (req, res) => {
   try {
@@ -141,9 +137,11 @@ router.get("/entrieswater", isLoggedIn, async (req, res) => {
           entriesByDate[date] = [];
         }
     
-        entriesByDate[date].push({ content: entry.liters });   
+        entriesByDate[date].push({ content: entry.liters, entryId: entry._id });   
       }
     });
+
+    
 
     res.render("users/tracker/waterEntries", { entriesByDate });
 
@@ -154,7 +152,6 @@ router.get("/entrieswater", isLoggedIn, async (req, res) => {
 });
 
 
-//Yoga entries route
 router.get("/entriesyoga", isLoggedIn, async (req, res) => {
   try {
     const userId = req.session.currentUser._id;
@@ -168,83 +165,55 @@ router.get("/entriesyoga", isLoggedIn, async (req, res) => {
 
         if (!entriesByDate[date]) { entriesByDate[date] = [] }
 
-        entriesByDate[date].push({ content: entry.minutes });
+        entriesByDate[date].push({ content: entry.minutes, entryId: entry._id});
       }
     });
     res.render("users/tracker/yogaEntries", { entriesByDate });
-
+    //console.log(entriesYoga)
   } catch (error) {
     console.error("Error:", error);
     return res.status(500).send("An error occurred while retrieving previous entries.");
   }
 });
+    
 
-         
 
-
-// Route for displaying entries for a specific habit
-router.get("/entries/:habit", isLoggedIn, async (req, res) => {
+//Delete an user entry 
+router.post("/entries/:habit/delete/:id", isLoggedIn, async (req, res) => {
   try {
-    const userId = req.session.currentUser._id;
+    
     const habit = req.params.habit;
-    let entriesByDate = [];
+    const entryId = req.params.id;
+    console.log(entryId, habit)
+    let model;
 
     switch (habit) {
       case "pushups":
-        entriesByDate = await pushUps.find({ user: userId }).sort({ date: "desc" });
-        const showButtons = true; 
-        res.render("users/tracker/pushUpEntries", { entriesByDate, content: "numberOf" });
+       model = pushUps;
         break;
       case "water":
-        entriesByDate = await water.find({user: userId}).sort({ date: "desc" });
-        res.render("users/tracker/waterEntries", { entriesByDate, content: "liters" });
+       model = water;
         break;
       case "yoga":
-        entriesByDate = await yoga.find({user: userId}).sort({ date: "desc" });
-        res.render("users/tracker/yogaEntries", { entriesByDate, content: "minutes" });
+       model = yoga;
         break;
       default:
-        return res.status(404).send("Insert coin :P");
+        return res.status(404).send("Invalid habit");
     }
+   
+    const result = await model.findByIdAndDelete(entryId);
+    
 
+    if (result) {
+      res.redirect(`/entries${habit}`);
+    } else {
+      res.status(404).send("Entry not found or not authorized to delete.");
+    }
   } catch (error) {
     console.error("Error:", error);
-    return res.status(500).send("An error occurred while retrieving previous entries: " + error.message);
+    res.status(500).send("An error occurred while deleting the entry: " + error.message);
   }
-  
-});      
-
-//Delete an user entry 
-
-// router.post("/entries/:habit/delete", isLoggedIn, async (req, res) => {
-//   try {
-//     const userId = req.session.currentUser._id;
-//     const entryId = req.body.entryId;
-
-//    
-//     const result = await pushUps.deleteOne({ _id: entryId, user: userId });
-
-//     if (result.deletedCount === 1) {
-//      
-//       res.redirect("/entries"); 
-//     } else {
-//      
-//       res.status(404).send("Entry not found or not authorized to delete.");
-//     }
-//   } catch (error) {
-//     console.error("Error:", error);
-//     res.status(500).send("An error occurred while deleting the entry: " + error.message);
-//   }
-// });
-
-router.post("/entries/:habit/delete", (req, res, next) => {
-  const { pushUpsId } = req.params._id;
-
-  pushUps.findByIdAndDelete(pushUpsId)
-
-    .then(() => res.redirect("/entries"))
-
-    .catch((error) => next(error));
 });
-module.exports = router
+
+ module.exports = router
 
