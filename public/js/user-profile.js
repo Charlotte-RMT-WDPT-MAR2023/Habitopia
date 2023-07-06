@@ -94,3 +94,31 @@ window.addEventListener("DOMContentLoaded", () => {
     div.appendChild(dayElement);
   });
 });
+
+
+
+//Display info on profile page
+
+window.addEventListener("DOMContentLoaded", () => {
+  const pushUpsList = document.querySelector('.pushups');
+
+  fetch("/user-profile")
+    .then((response) => response.json())
+    .then((data) => {
+      const pushUpsData = data.pushUps;
+
+      // Update push-ups UI
+      pushUpsList.innerHTML = '';
+      pushUpsData.forEach(pushUp => {
+        const pushUpItem = document.createElement('li');
+        pushUpItem.classList.add('pushup');
+        pushUpItem.textContent = pushUp.numberOf;
+        pushUpsList.appendChild(pushUpItem);
+      });
+    })
+    .catch((error) => {
+      console.log("Error fetching push-ups:", error);
+    });
+});
+
+

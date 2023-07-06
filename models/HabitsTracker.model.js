@@ -27,10 +27,6 @@ const waterHabitSchema = new mongoose.Schema({
     required: true,
     default: Date.now,
   },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-  },
 });
 
 const yogaHabitSchema = new mongoose.Schema({
@@ -42,10 +38,6 @@ const yogaHabitSchema = new mongoose.Schema({
     type: Date,
     required: true,
     default: Date.now,
-  },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
   },
 });
 

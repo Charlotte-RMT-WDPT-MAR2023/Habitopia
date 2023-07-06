@@ -99,27 +99,29 @@ router.post("/yoga", isLoggedIn, (req, res) => {
 router.get("/entriespushups", isLoggedIn, async (req, res) => {
   try {
     const userId = req.session.currentUser._id;
+
     const entriesPushUps = await pushUps.find({user: userId}).sort({ date: "desc" });
+
 
     // Create an object to store entries grouped by date
     const entriesByDate = {};
 
     entriesPushUps.forEach(entry => {
-      const date = entry.date.toLocaleDateString("en-GB"); // Format: dd-mm-yyyy
-      
+      const date = entry.date.toLocaleDateString("en-GB");
+
       if (!entriesByDate[date]) {
         entriesByDate[date] = [];
       }
 
-      entriesByDate[date].push({ content: entry.numberOf });  //property to be displayed 
+      entriesByDate[date].push({ content: entry.numberOf });
     });
 
     res.render("users/tracker/pushUpEntries", { entriesByDate });
-      
   } catch (error) {
     return res.status(500).send("An error occurred while retrieving previous entries.");
   }
 });
+
 
 
 //Water entries route 
@@ -236,7 +238,7 @@ router.get("/entries/:habit", isLoggedIn, async (req, res) => {
 // });
 
 router.post("/entries/:habit/delete", (req, res, next) => {
-  const { pushUpsId } = req.params.entryId;
+  const { pushUpsId } = req.params._id;
 
   pushUps.findByIdAndDelete(pushUpsId)
 
