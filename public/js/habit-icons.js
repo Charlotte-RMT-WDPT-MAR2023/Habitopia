@@ -21,7 +21,7 @@ window.addEventListener("DOMContentLoaded", () => {
       
       if (hasEntry) {
         const image = document.createElement("img");
-        image.src = "/images/foot.jpg"; 
+        image.src = "/images/Arm.png"; 
         image.classList.add("thumbnail");
         liElement.appendChild(image);
       }
@@ -56,7 +56,7 @@ window.addEventListener("DOMContentLoaded", () => {
       
       if (hasEntry) {
         const image = document.createElement("img");
-        image.src = "/images/water.jpg"; 
+        image.src = "/images/waterGlass.png"; 
         image.classList.add("thumbnail");
         liElement.appendChild(image);
       }
@@ -91,7 +91,7 @@ window.addEventListener("DOMContentLoaded", () => {
       
       if (hasEntry) {
         const image = document.createElement("img");
-        image.src = "/images/yoga 1.jpg"; 
+        image.src = "/images/wellbeing.png"; 
         image.classList.add("thumbnail");
         liElement.appendChild(image);
       }

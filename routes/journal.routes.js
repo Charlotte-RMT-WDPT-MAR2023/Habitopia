@@ -245,7 +245,7 @@ router.post("/journal/:journalId/delete", isLoggedIn, (req, res, next) => {
 
 const { pushUps } = require("../models/HabitsTracker.model.js");
 
-router.get("/7days/pushups", isLoggedIn, (req, res, next) => {
+router.get("/7days/pushups", (req, res, next) => {
   const userId = req.session.currentUser._id;
   const sevenDaysAgo = new Date();
   sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
