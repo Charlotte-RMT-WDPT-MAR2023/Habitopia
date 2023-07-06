@@ -77,7 +77,7 @@ router.post("/login", (req, res, next) => {
 
 
 router.get('/userProfile', isLoggedIn, (req, res) => {
-  res.render('users/user-profile', { userInSession: req.session.currentUser, isLoggedIn: true });
+  res.render('users/user-profile', { userInSession: req.session.currentUser, isLoggedIn: true});
 });
 
 router.post("/logout", (req, res, next) => {

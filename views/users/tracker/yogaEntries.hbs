@@ -1,17 +1,21 @@
 
+<img class = "background" src="./images/background.jpg" alt="habits">
 <br>
 <a href="/yoga" class="return-link">Return</a>
+
 <br>
 
 <h1>Yoga: Previous Entries</h1>
 <br>
 {{#each entriesByDate}}
+<div class="container">
   <h2>{{@key}}</h2> 
   
   {{#each this}}
     <div>
       <p> Duration: {{content}} minutes</p> 
     </div>
+
 
     <div class="tracker-list-buttons">
       <form action="/entriesyoga/{{_id}}/edit" method="GET" type="button">
@@ -22,8 +26,11 @@
         <button class="delete-side-by-side">Delete</button>
       </form>
     </div>
+
   {{/each}}
 
+  
+  </div>
   <hr>
 {{/each}}
 
