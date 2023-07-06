@@ -6,7 +6,9 @@
 body {
   padding: 50px;
   font: 14px "Ubuntu";
+  
 }
+
 
 h1, h2, div {
   margin: 30px auto;
@@ -14,6 +16,21 @@ h1, h2, div {
   text-align: center;
 }
 
+h4 {
+  margin: 30px auto;
+  width: 380px;
+  text-align: center;
+  font-size: 1.5em;
+  
+}
+
+nav {
+height: 110px;
+}
+
+h2 {
+  white-space: nowrap;
+}
 
 a {
   color: #B9775B;
