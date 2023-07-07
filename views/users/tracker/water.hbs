@@ -1,26 +1,27 @@
+<img class="background" src="./images/background.jpg" alt="habits" />
 
-<img class = "background" src="./images/background.jpg" alt="habits">
-
-<br>
+<br />
 <div class="container">
-<div class="form2">
-  <h2>How many liters of water have you drunk today?</h2>
+  <div class="form2">
+    <h3>How many liters of water have you drunk today?</h3>
 
+  </div>
+  <div class="form2">
+
+    <form class="form3" action="/water" method="POST">
+
+      <label class="resizeinput" for="liters">1 Liter = 🥛 🥛 🥛 🥛</label>
+      <input type="text" name="liters" required />
+      <br /><br />
+      <button class="habit-button" type="submit">Submit</button>
+
+    </form>
+    <a href="/entrieswater">
+      <button
+        class="habit-button"
+        id="adjust-entries-btn"
+        type="button"
+      >Entries</button>
+    </a>
+  </div>
 </div>
-<div class="form2">
-
-  <form class="form3" action="/water" method="POST">
-
-   <label class="resizeinput" for="liters">1 Liter = 🥛 🥛 🥛 🥛</label>
-    <input type="text" name="liters" required>
-     <br><br>
-    <button class="habit-button" type="submit">Submit</button>
-
-
-  </form>
-  <a href="/entrieswater">
-      <button class="habit-button" id="adjust-entries-btn" type="button">Entries</button>
-  </a>
-</div>
-</div>
-
