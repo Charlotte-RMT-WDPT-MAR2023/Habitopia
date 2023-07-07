@@ -1,0 +1,21 @@
+<!-- editEntry.hbs -->
+
+<h2>Update Entry</h2>
+<div>
+  <form action="/entries/{{habit}}/edit/{{_id}}" method="post">
+    <h2>{{date}}</h2>
+    <label>
+      
+      <textarea name="content" class="entry">{{entryId.content}}</textarea>
+    </label>
+
+    <button type="submit">Save Changes</button>
+  </form>
+</div>
+
+    
+
+
+
+
+ 

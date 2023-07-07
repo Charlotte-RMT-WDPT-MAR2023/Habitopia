@@ -142,7 +142,6 @@ router.get("/entrieswater", isLoggedIn, async (req, res) => {
     });
 
     
-
     res.render("users/tracker/waterEntries", { entriesByDate });
 
   } catch (error) {
@@ -215,5 +214,80 @@ router.post("/entries/:habit/delete/:id", isLoggedIn, async (req, res) => {
   }
 });
 
- module.exports = router
 
+
+// //edit an user entry 
+
+// router.get("/entries/:habit/edit/:id", isLoggedIn, async (req, res) => {
+//   try {
+    
+//     const habit = req.params.habit;
+//     const entryId = req.params.id;
+//     let model;
+
+//     switch (habit) {
+//       case "pushups":
+//         model = pushUps;
+//         break;
+//       case "water":
+//         model = water;
+//         break;
+//       case "yoga":
+//         model = yoga;
+//         break;
+//       default:
+//         return res.status(404).send("Invalid habit");
+//     }
+
+//     const result = await model.findByIdAndUpdate(entryId);
+
+//     if (result) {
+//       res.render("/users/tracker/editEntry");
+//     } else {
+//       res.status(404).send("Entry not found.");
+//     }
+//   } catch (error) {
+//     console.error("Error:", error);
+//     res.status(500).send("An error occurred while deleting the entry: " + error.message);
+//   }
+// });
+
+
+
+// router.post("/entries/:habit/edit/:id", isLoggedIn, async (req, res) => {
+//   try {
+//     const userId = req.session.currentUser._id;
+//     const habit = req.params.habit;
+//     const entryId = req.params.id;
+//     let model;
+
+//     switch (habit) {
+//       case "pushups":
+//         model = pushUps;
+//         break;
+//       case "water":
+//         model = water;
+//         break;
+//       case "yoga":
+//         model = yoga;
+//         break;
+//       default:
+//         return res.status(404).send("Invalid habit");
+//     }
+
+//     const content = req.body.content;
+//     const result = await model.findByIdAndUpdate(entryId, { content }, { new: true });
+
+//     if (result) {
+//       res.redirect(`/entries/${habit}`);
+//     } else {
+//       res.status(404).send("Entry not found or not authorized to edit.");
+//     }
+//   } catch (error) {
+//     console.error("Error:", error);
+//     res.status(500).send("An error occurred while editing the entry: " + error.message);
+//   }
+// });
+
+
+ module.exports = router
