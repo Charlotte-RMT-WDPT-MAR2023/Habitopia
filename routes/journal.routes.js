@@ -107,7 +107,7 @@ router.get("/journal", isLoggedIn, async (req, res) => {
         month: "long",
         day: "numeric",
       };
-      return res.render("users/journal/journal", {
+      return res.render("users/Journal/journal", {
         createdAt: today.toLocaleDateString("en-US", options),
         content: "Nothing to see here",
       });
@@ -167,7 +167,7 @@ router.get("/journal/:journalId", isLoggedIn, (req, res) => {
         console.log("Journal not found.");
         return res.redirect("/journallist");
       }
-      res.render("users/journal/journal-details", { journal: theJournal });
+      res.render("users/Journal/journal-details", { journal: theJournal });
       console.log("Journal details:", theJournal);
     })
     .catch((error) => {
@@ -191,7 +191,7 @@ router.get("/journal/:journalId/edit", isLoggedIn, (req, res, next) => {
         console.log("Journal not found.");
         return res.redirect("/journallist");
       }
-      res.render("users/journal/journal-edit.hbs", { journal: journalToEdit });
+      res.render("users/Journal/journal-edit.hbs", { journal: journalToEdit });
     })
     .catch((error) => next(error));
 });
