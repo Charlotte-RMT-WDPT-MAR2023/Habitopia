@@ -144,7 +144,7 @@ router.get("/journallist", isLoggedIn, (req, res, next) => {
   Journal.find({ user: userId })
     .sort({ createdAt: -1 })
     .then((userJournalsFromDB) => {
-      res.render("users/journal/journal-list", { journals: userJournalsFromDB });
+      res.render("users/Journal/journal-list", { journals: userJournalsFromDB });
     })
     .catch((error) => {
       console.log("Error while getting the journals from the DB: ", error);
