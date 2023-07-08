@@ -75,7 +75,7 @@ router.post("/journal", isLoggedIn, (req, res) => {
     .save()
     .then(() => {
       console.log(successMessage);
-      res.render("users/journal/journal-success", { successMessage });
+      res.render("users/Journal/journal-success", { successMessage });
     })
     .catch((error) => {
       console.log("Error saving journal entry:", error);
