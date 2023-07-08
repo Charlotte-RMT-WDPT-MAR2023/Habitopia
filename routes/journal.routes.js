@@ -121,7 +121,7 @@ router.get("/journal", isLoggedIn, async (req, res) => {
       day: "numeric",
     };
 
-    return res.render("users/journal/journal", {
+    return res.render("users/Journal/journal", {
       createdAt: new Date(previousEntry.createdAt).toLocaleDateString(
         "en-US",
         options
